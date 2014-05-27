@@ -1,7 +1,5 @@
-APCS2 Final Project
-==================================
-
 <h2>Flash Card App</h2>
+<h6> by Patrick Tsai, Sungwoo Park, and Pratish Gheewala, pd. 9</h6>
 
 <h4>Overall idea</h4>
 This program will emulate the functions of "flash card app" that a user can use to memorize words. 
