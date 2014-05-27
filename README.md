@@ -1,6 +1,8 @@
 <h2>Flash Card App</h2>
 <h6> by Patrick Tsai, Sungwoo Park, and Pratish Gheewala, pd. 9</h6>
 
+<img src="http://i287.photobucket.com/albums/ll128/patmaster/flashcard_zps2c1065a8.png" width="200" alt="Flashcards" align="right">
+
 <h4>Overall idea</h4>
 This program will emulate the functions of "flash card app" that a user can use to memorize words. 
 Using the data structure that we learned in this term, 
