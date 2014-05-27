@@ -1,11 +1,9 @@
-pd9_PSP_PatrickT_SungwooP_PratishG
+APCS2 Final Project
 ==================================
 
-APCS2 Final Project
+<h2>Flash Card App</h2>
 
-Flash Card App
-
-Overall idea: This program will emulate the functions of "flash card app" that a user can use to memorize words. Using the data structure that we learned in this term, the program will store the words and definition that user inputted, and randomly choose one of them to test users.
+<h1>Overall idea<h1><br> This program will emulate the functions of "flash card app" that a user can use to memorize words. <br>Using the data structure that we learned in this term, the program will store the words and definition that user inputted, and randomly choose one of them to test users.
 
 User Experience: Users will be able to add words that they want to study. They will type in words and the definitions of the words. And then users can use this program to test themselves. The program will randomly choose the words based on the number of times that user got certain word correct (the words that user frequently got wrong will come up more often) and a user has to type the definition of that word.
 
