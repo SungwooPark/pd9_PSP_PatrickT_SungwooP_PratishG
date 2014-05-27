@@ -29,6 +29,9 @@ These are topics that we need to teach ourselves if we want to implement them in
 
 <h3>Mechanism of testing</h3> 
 The application will randomly choose an inputted word to test. 
+When an user calls a testing function of the program, a random queue of words from the arraylist will be initialized.
 If the user gets the word wrong, another object of the word will be added to the random queue
 so the frequency of the word is raised, thus increasing the chance that the user will be tested on 
 that word again.
+If the user gets the word right, the word will be deleted from the queue, thus decreasing the frequency
+of that word appearing.
