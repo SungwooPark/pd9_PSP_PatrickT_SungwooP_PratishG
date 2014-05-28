@@ -6,4 +6,12 @@ public class Main {
 	public Main() {
 	
 	}
+	
+	public void add() {
+	
+	}
+	
+	public void remove() {
+		
+	}
 }
