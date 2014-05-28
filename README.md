@@ -10,7 +10,7 @@ This application will:
 - Ensure learning of input!
 
 <h4>Behind the Scenes</h4>
-- `Flash Card App` uses an ArrayList of LinkedLists. Each time a word is entered, a new LinkedList is created.
+- <b>Flash Card App</b> uses an ArrayList of LinkedLists. Each time a word is entered, a new LinkedList is created.
 - The LinkedList will contain attributes associated with the word, such as the definition.
 - A random LinkedList (word, definition, etc.) from the ArrayList will be chosen when the user clicks a button.
 - If the user gets the item correct, great!
