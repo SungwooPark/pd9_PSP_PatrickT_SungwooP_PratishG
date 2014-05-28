@@ -1,11 +1,16 @@
 public class Card{
     private String name; //Name of a word
-    private String def; //Defintion
+    private String def; //Definition
     private int numWrong; //The number of times a user got this word incorrect
 
     //Constructor takes name
-    public Card(String n){
-        String name;
+	public Card(String name) {
+		this.name = name;
+	}
+	
+    public Card(String name, String def){
+		this.name = name;
+		this.def = def;
     }
 
     public String getName(){
@@ -17,7 +22,7 @@ public class Card{
     }
 
     public void setDef(String definition){
-        def = defintion;
+        def = definition;
     }
 
     public int getNumWrong(){
@@ -27,4 +32,8 @@ public class Card{
     public void setNumWrong(int n){
         numWrong = n;
     }
+	
+	public void gotWrong() {
+		numWrong++;
+	}
 }

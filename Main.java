@@ -1,17 +1,22 @@
 import java.util.*;
 
 public class Main {
-	ArrayList<Card> deck = new ArrayList<Card>();
+	private ArrayList<Card> deck;
 	
 	public Main() {
-	
+		deck = new ArrayList<Card>();
 	}
 	
-	public void add() {
-	
+	public void add(String term, String definition) {
+		Card newCard = new Card(term, definition);
 	}
 	
-	public void remove() {
-		
+	public void remove(String term) {
+		for (Card i : deck) {
+			if (i.getName().equals(term)) {
+				deck.remove(i);
+				return;
+			}
+		}
 	}
 }
