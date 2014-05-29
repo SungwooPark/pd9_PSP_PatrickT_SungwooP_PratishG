@@ -51,7 +51,24 @@ public class Main {
                 System.out.print("Input definition: ");
                 String def = scan.next();
                 add(word, def);
-            }else if(command == 5){
+            }
+            //View inputted words
+            else if(command == 2){
+                for (Card i: deck){
+                    System.out.println(i.getName());
+                }
+            }
+            //Removing words
+            else if (command == 3){
+                System.out.print("Which word do you want to remove? ");
+                String word = scan.next();
+                remove(word);
+            }
+            //Test
+            else if (command == 4){
+                //Call testing function/class
+            }
+            else if(command == 5){
                 cont = false;
                 System.out.println("Ending program");
             }
