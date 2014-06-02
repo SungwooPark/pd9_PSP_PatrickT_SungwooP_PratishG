@@ -22,23 +22,23 @@ public class Main extends JPanel {
 	}
 
    	public static void main(String[] args){
-   		JFrame frame = new JFrame("Flashcards");
-   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-   		frame.setLocationRelativeTo(null);
-   		frame.setVisible(true);
-   		frame.setPreferredSize(new Dimension(500, 300));
-        Main m = new Main();
-        frame.getContentPane().add(m);
+            JFrame frame = new JFrame("Flashcards");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+            frame.setPreferredSize(new Dimension(500, 300));
+            Main m = new Main();
+            frame.getContentPane().add(m);
 
-        //Calls main screen method
-        while (true){
-            m.repaint();
-            //m.mainScreen();
-            try {
-            	Thread.sleep(20);
-            } catch (InterruptedException e) {}
+            //Calls main screen method
+            while (true){
+                m.repaint();
+                //m.mainScreen();
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {}
+            }
         }
-    }
 	
 	public void add(String term, String definition) {
 			Card newCard = new Card(term, definition);
