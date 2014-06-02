@@ -1,6 +1,7 @@
 public class Test{
 	private RQueue<Card> Testable;
 	public Test(ArrayList<Card> Words){
+		
 	//Random Queue with words from ArrayList.
 		Testable = new RQueue();
 		for(Card x: Words){
@@ -25,10 +26,16 @@ public class Test{
 	//If user gets it right, remove word from the queue, else add the word.  If no more words left inform user
 	public 	void Tester(){
 		Card rightWord = picker();
-		Array[] wrongChoices = new Array(4);
-		for(int i = 0;i<=4;i++){
-			wrongChoices[i] = picker().get
+		Random r = new Random();
+		String[] Choices = new Array(4);
+		for(int i = 0;i<3;i++){
+			Choices[r.nextInt(4)] = picker().getDef();
 		}
-
+		for(int m = 0; m < Choices.length){
+			if (Choices[m] == null){
+				Choices[m] = rightWord.getDef();
+			}
+		}
 	}
 	//unsure how exactly the program would work, how would it check if it user's response is right or wrong	
+}
