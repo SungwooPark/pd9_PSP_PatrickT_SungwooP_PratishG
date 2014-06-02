@@ -24,6 +24,11 @@ public class Test{
 		//actual tester
 	//If user gets it right, remove word from the queue, else add the word.  If no more words left inform user
 	public 	void Tester(){
+		Card rightWord = picker();
+		Array[] wrongChoices = new Array(4);
+		for(int i = 0;i<=4;i++){
+			wrongChoices[i] = picker().get
+		}
 
 	}
 	//unsure how exactly the program would work, how would it check if it user's response is right or wrong	
