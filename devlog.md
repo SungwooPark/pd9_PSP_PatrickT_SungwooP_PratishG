@@ -8,3 +8,9 @@
 - Started coding terminal based UI
 - Started coding GUI
 - Continued working on testing class
+
+
+`2014-06-02`
+- Assigned  issues to people
+- Made Layout of what the Gui will have
+- Continued Coding.
