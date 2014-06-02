@@ -1,25 +1,42 @@
+import java.awt.*;
 import java.util.*;
+import javax.swing.*;
 
-public class Main extends JPanel{
+public class Main extends JPanel {
 
 	private ArrayList<Card> deck;
-	private boolean cont; //while this is true, program continues
+	private GUISetting guiSetting;
 
 	public Main() {
         deck = new ArrayList<Card>();
+        initializeGUI();
+        guiSetting = GUISetting.MAIN;
 	}
 
-	public final initializeGUI() {
+	public void initializeGUI() {
+		
+	}
+
+	public void loadWords() {
 
 	}
 
    	public static void main(String[] args){
-   		JFrame frame = new JFrame();
+   		JFrame frame = new JFrame("Flashcards");
+   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   		frame.setLocationRelativeTo(null);
+   		frame.setVisible(true);
+   		frame.setPreferredSize(new Dimension(500, 300));
         Main m = new Main();
+        frame.getContentPane().add(m);
 
         //Calls main screen method
-        while (m.cont()){
-            m.mainScreen();
+        while (true){
+            m.repaint();
+            //m.mainScreen();
+            try {
+            	Thread.sleep(20);
+            } catch (InterruptedException e) {}
         }
     }
 	
@@ -70,5 +87,27 @@ public class Main extends JPanel{
             System.out.println("Ending program");
             System.exit(0);
         }
+    }
+
+    //~~~~~~~~~~~~ Painting class ~~~~~~~~~~~~~//
+    public void paintComponent(Graphics g) {
+    	super.paintComponent(g);
+    	switch (guiSetting) {
+    		case MAIN:
+    			break;
+    		case TESTING:
+    			break;
+    		case ADD:
+    			break;
+    		case REMOVE:
+    			break;
+    		case VIEW:
+    			break;
+    	}
+    }
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+    public enum GUISetting {
+    	MAIN, TESTING, ADD, REMOVE, VIEW
     }
 }
