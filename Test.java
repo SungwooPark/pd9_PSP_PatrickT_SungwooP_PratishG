@@ -24,7 +24,7 @@ public class Test{
 		
 		//actual tester
 	//If user gets it right, remove word from the queue, else add the word.  If no more words left inform user
-	public 	void Tester(){
+	public 	void Tester(int Selected){
 		Card rightWord = picker();
 		Random r = new Random();
 		String[] Choices = new Array(4);
@@ -36,6 +36,13 @@ public class Test{
 				Choices[m] = rightWord.getDef();
 			}
 		}
-	}
+		if(Choices[Selected] == rightWord.getDef()){
+			System.out.println("You are Correct")
+		}
+		else{
+			System.out.println("Sorry, Wrong Answer, Right Answer is: " + rightWord.getDef())
+		}
+		}
+}	
 	//unsure how exactly the program would work, how would it check if it user's response is right or wrong	
-}
+
