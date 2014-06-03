@@ -37,10 +37,10 @@ public class Test{
 			}
 		}
 		if(Choices[Selected] == rightWord.getDef()){
-			System.out.println("You are Correct")
+			System.out.println("You are Correct");
 		}
 		else{
-			System.out.println("Sorry, Wrong Answer, Right Answer is: " + rightWord.getDef())
+			System.out.println("Sorry, Wrong Answer, Right Answer is: " + rightWord.getDef());
 		}
 		}
 }	
