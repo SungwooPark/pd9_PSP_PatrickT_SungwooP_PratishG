@@ -31,7 +31,7 @@ public class Test{
 		for(int i = 0;i<3;i++){
 			Choices[r.nextInt(4)] = picker().getDef();
 		}
-		for(int m = 0; m < Choices.length){
+		for(int m = 0; m < Choices.length; m++){
 			if (Choices[m] == null){
 				Choices[m] = rightWord.getDef();
 			}

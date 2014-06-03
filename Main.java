@@ -2,18 +2,35 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-public class Main extends JPanel {
+public class Main extends JPanel{
 
 	private ArrayList<Card> deck;
 	private GUISetting guiSetting;
+	private Container pane;
+	
+	private JTextField currentWord;
 
-	public Main() {
+	public Main(Container pane) {
         deck = new ArrayList<Card>();
-        initializeGUI();
         guiSetting = GUISetting.MAIN;
+		this.pane = pane;
+		initializeGUI();
 	}
 
 	public void initializeGUI() {
+		setPreferredSize(new Dimension(500, 300));
+		//pane.setLayout(new GridBagLayout());
+		currentWord = new JTextField(20);
+		currentWord.setHorizontalAlignment(JTextField.CENTER);
+
+		pane.add(currentWord);
+	}
+	
+	public void typeDefinitionVersion() {
+		
+	}
+	
+	public void multipleChoiceVersion() {
 		
 	}
 
@@ -26,9 +43,11 @@ public class Main extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
-            frame.setPreferredSize(new Dimension(500, 300));
-            Main m = new Main();
-            frame.getContentPane().add(m);
+            frame.setPreferredSize(new Dimension(600, 400));
+			//frame.setSize(600, 400);
+
+            Main m = new Main(frame.getContentPane());
+			frame.pack();
 
             //Calls main screen method
             while (true){
