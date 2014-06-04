@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import java.nio.file.*;
+import java.io.*;
+import java.nio.charset.*;
 
 public class Main extends JPanel{
 
@@ -11,10 +14,11 @@ public class Main extends JPanel{
 	private JTextField currentWord;
 
 	public Main(Container pane) {
-        deck = new ArrayList<Card>();
-        guiSetting = GUISetting.MAIN;
-		this.pane = pane;
-		initializeGUI();
+            deck = new ArrayList<Card>();
+            populateDeck(); //Read words from txt file and add the words to the deck
+            guiSetting = GUISetting.MAIN;
+            this.pane = pane;
+	    initializeGUI();
 	}
 
 	public void initializeGUI() {
@@ -59,8 +63,27 @@ public class Main extends JPanel{
             }
         }
 	
+
+        //Reads the txt file and add the words to the arraylist deck
+        //txt file is formatted such that each line represent one word
+        //each line has a term and definition separated by comma
+        public void populateDeck(){
+            Charset charset = Charset.forName("US-ASCII");
+            Path path = FileSystems.getDefault().getPath("words.txt");
+            try (BufferedReader reader = Files.newBufferedReader(path,charset)){
+                String line = null;
+                while ((line = reader.readLine()) != null){
+                    System.out.println(line);
+                }
+            }catch (IOException x){
+                System.out.println("IO Exception");
+            } 
+        
+        }
+
+
 	public void add(String term, String definition) {
-			Card newCard = new Card(term, definition);
+	    Card newCard = new Card(term, definition);
             deck.add(newCard); //Adding new word to the deck
         }
 	
