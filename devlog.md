@@ -14,3 +14,8 @@
 - Assigned  issues to people
 - Made Layout of what the Gui will have
 - Continued Coding.
+
+`2014-06-03`
+- Continued working on GUI
+- Test class is almost done
+- Adding reading and writing file capability to the program, so it can store words

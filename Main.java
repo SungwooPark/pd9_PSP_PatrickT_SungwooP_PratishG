@@ -2,6 +2,10 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import java.nio.file.*;
+import java.io.*;
+import java.nio.charset.*;
+import java.util.*;
 
 public class Main extends JPanel {
 
@@ -51,6 +55,7 @@ public class Main extends JPanel {
 	}
 
    	public static void main(String[] args){
+
             JFrame frame = new JFrame("Flashcards");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
@@ -61,6 +66,7 @@ public class Main extends JPanel {
             Main m = new Main();
             frame.getContentPane().add(m);
 			frame.pack();
+            
 
             //Calls main screen method
             while (true){
@@ -72,8 +78,52 @@ public class Main extends JPanel {
             }
         }
 	
+
+        //Reads the txt file and add the words to the arraylist deck
+        //txt file is formatted such that each line represent one word
+        //each line has a term and definition separated by comma
+        public void populateDeck(){
+            Charset charset = Charset.forName("US-ASCII");
+            Path path = FileSystems.getDefault().getPath("words.txt");
+            try (BufferedReader reader = Files.newBufferedReader(path,charset)){
+                String line = null;
+                while ((line = reader.readLine()) != null){
+                    String[] wordSet = new String[2]; //Term and defintion as an arraylist
+                    wordSet = line.split(",");
+                    add(wordSet[0],wordSet[1]);
+                }
+            }catch (IOException x){
+                System.out.println("IO Exception");
+            } 
+        
+        }
+
+        //When user presses "Save button", the program writes the words in the arrayList into txt file.
+        //Txt file is overwrited.
+        public void saveWords(){
+            Path path = FileSystems.getDefault().getPath("words.txt");//Path to the word file
+            Charset charset = Charset.forName("US-ASCII"); //Indicate to use ASCII to convert byte to characters
+            try(BufferedWriter writer = Files.newBufferedWriter(path,charset)){
+                for (Card i:deck){
+                    String s = i.getName() + "," + i.getDef() + "\n";
+                    writer.write(s,0,s.length());
+                }    
+            }catch (IOException x){
+                System.out.println("IO Exception");
+            }
+            
+        }
+
+        //Just a test function to see whether reading and writing works
+        //It will be deleted
+        public void test(){
+            for (Card i:deck){
+                System.out.println(i.getName() + " -------> " + i.getDef());
+            }
+        }
+
 	public void add(String term, String definition) {
-			Card newCard = new Card(term, definition);
+	    Card newCard = new Card(term, definition);
             deck.add(newCard); //Adding new word to the deck
         }
 	
