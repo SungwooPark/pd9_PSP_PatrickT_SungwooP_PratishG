@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.nio.file.*;
 import java.io.*;
 import java.nio.charset.*;
+import java.util.*;
 
 public class Main extends JPanel{
 
@@ -43,6 +44,7 @@ public class Main extends JPanel{
 	}
 
    	public static void main(String[] args){
+
             JFrame frame = new JFrame("Flashcards");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
@@ -52,6 +54,7 @@ public class Main extends JPanel{
 
             Main m = new Main(frame.getContentPane());
 			frame.pack();
+            
 
             //Calls main screen method
             while (true){
@@ -73,7 +76,9 @@ public class Main extends JPanel{
             try (BufferedReader reader = Files.newBufferedReader(path,charset)){
                 String line = null;
                 while ((line = reader.readLine()) != null){
-                    System.out.println(line);
+                    String[] wordSet = new String[2]; //Term and defintion as an arraylist
+                    wordSet = line.split(",");
+                    add(wordSet[0],wordSet[1]);
                 }
             }catch (IOException x){
                 System.out.println("IO Exception");
@@ -81,6 +86,29 @@ public class Main extends JPanel{
         
         }
 
+        //When user presses "Save button", the program writes the words in the arrayList into txt file.
+        //Txt file is overwrited.
+        public void saveWords(){
+            Path path = FileSystems.getDefault().getPath("words.txt");//Path to the word file
+            Charset charset = Charset.forName("US-ASCII"); //Indicate to use ASCII to convert byte to characters
+            try(BufferedWriter writer = Files.newBufferedWriter(path,charset)){
+                for (Card i:deck){
+                    String s = i.getName() + "," + i.getDef() + "\n";
+                    writer.write(s,0,s.length());
+                }    
+            }catch (IOException x){
+                System.out.println("IO Exception");
+            }
+            
+        }
+
+        //Just a test function to see whether reading and writing works
+        //It will be deleted
+        public void test(){
+            for (Card i:deck){
+                System.out.println(i.getName() + " -------> " + i.getDef());
+            }
+        }
 
 	public void add(String term, String definition) {
 	    Card newCard = new Card(term, definition);
