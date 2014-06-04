@@ -1,29 +1,41 @@
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.border.*;
 
-public class Main extends JPanel{
+public class Main extends JPanel {
 
 	private ArrayList<Card> deck;
 	private GUISetting guiSetting;
-	private Container pane;
-	
-	private JTextField currentWord;
 
-	public Main(Container pane) {
+	private JTextField word;
+	private JTextArea definition1;
+	private JTextArea definition2;
+	private JTextArea definition3;
+	private JTextArea definition4;
+
+	public Main() {
         deck = new ArrayList<Card>();
         guiSetting = GUISetting.MAIN;
-		this.pane = pane;
+        setPreferredSize(new Dimension(600, 400));
 		initializeGUI();
 	}
 
 	public void initializeGUI() {
-		setPreferredSize(new Dimension(500, 300));
-		//pane.setLayout(new GridBagLayout());
-		currentWord = new JTextField(20);
-		currentWord.setHorizontalAlignment(JTextField.CENTER);
+		word = new JTextField("testing");
+		word.setEditable(false);
+		word.setHorizontalAlignment(JTextField.CENTER);
+		Font font = new Font("Courier", Font.BOLD, 42);
+		word.setFont(font);
 
-		pane.add(currentWord);
+		add(word, BorderLayout.CENTER);
+
+		JPanel chooseDefinition = new JPanel(new BorderLayout(2,2));
+		definition1 = new JTextArea("definition1 testing");
+		definition1.setPreferredSize(new Dimension(300,150));
+		chooseDefinition.add(definition1, BorderLayout.WEST);
+
+		//add(chooseDefinition, BorderLayout.SOUTH);
 	}
 	
 	public void typeDefinitionVersion() {
@@ -46,12 +58,13 @@ public class Main extends JPanel{
             frame.setPreferredSize(new Dimension(600, 400));
 			//frame.setSize(600, 400);
 
-            Main m = new Main(frame.getContentPane());
+            Main m = new Main();
+            frame.getContentPane().add(m);
 			frame.pack();
 
             //Calls main screen method
             while (true){
-                m.repaint();
+                //m.repaint();
                 //m.mainScreen();
                 try {
                     Thread.sleep(20);
@@ -108,6 +121,7 @@ public class Main extends JPanel{
         }
     }
 
+	/*
     //~~~~~~~~~~~~ Painting class ~~~~~~~~~~~~~//
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
@@ -125,6 +139,7 @@ public class Main extends JPanel{
     	}
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    */
 
     public enum GUISetting {
     	MAIN, TESTING, ADD, REMOVE, VIEW
