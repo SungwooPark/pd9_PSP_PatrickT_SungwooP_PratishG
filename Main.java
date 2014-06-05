@@ -85,14 +85,50 @@ public class Main extends JPanel {
 		textPane.setText("Flashcards");
 		Font font = new Font("Courier", Font.BOLD, 60);
 		textPane.setFont(font);
+		StyledDocument doc = textPane.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		textPane.setBackground(Color.GRAY);
+		textPane.setForeground(Color.BLUE);
 		panel.add(textPane, BorderLayout.PAGE_START);
 		
-		JPanel buttonPanel = new JPanel(new GridLayout(0,1,0,10));
+		JPanel buttonPanel = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.insets = new Insets(10,0,0,0);
+		
+		JButton viewWords = new JButton("View words");
+		viewWords.addActionListener(new actionListener());
+		viewWords.setActionCommand("viewWords");
+		viewWords.setPreferredSize(new Dimension(150, 30));
+		c.gridy = GridBagConstraints.RELATIVE;
+		buttonPanel.add(viewWords, c);
+		
+		JButton addWords = new JButton("Add words");
+		addWords.addActionListener(new actionListener());
+		addWords.setActionCommand("addWords");
+		addWords.setPreferredSize(new Dimension(150, 30));
+		buttonPanel.add(addWords, c);
+		
+		JButton removeWords = new JButton("Remove words");
+		removeWords.addActionListener(new actionListener());
+		removeWords.setActionCommand("removeWords");
+		removeWords.setPreferredSize(new Dimension(150, 30));
+		buttonPanel.add(removeWords, c);
+		
 		JButton test = new JButton("Test");
-		test.setPreferredSize(new Dimension(20, 10));
 		test.addActionListener(new actionListener());
 		test.setActionCommand("timeToTest");
-		buttonPanel.add(test, BorderLayout.CENTER);
+		test.setPreferredSize(new Dimension(150, 30));
+		buttonPanel.add(test, c);
+		
+		c.insets = new Insets(30,0,0,0);
+		JButton quit = new JButton("Quit");
+		quit.addActionListener(new actionListener());
+		quit.setActionCommand("quit");
+		quit.setPreferredSize(new Dimension(150, 30));
+		buttonPanel.add(quit, c);
 		
 		panel.add(buttonPanel, BorderLayout.CENTER);
 		
@@ -288,6 +324,9 @@ public class Main extends JPanel {
 				case "timeToTest":
 					guiSetting = GUISetting.TEST;
 					redraw();
+					break;
+				case "quit":
+					System.exit(0);
 					break;
 				default:
 					break;
