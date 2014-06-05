@@ -24,6 +24,7 @@ public class Main extends JPanel {
 	public Main() {
         deck = new ArrayList<Card>();
         guiSetting = GUISetting.MAIN;
+        addKeyListener(new escapeListener());
         setPreferredSize(new Dimension(600, 400));
 		setLayout(new BorderLayout());
 		graphicalMainScreen();
@@ -47,8 +48,10 @@ public class Main extends JPanel {
 		revalidate();
 	}
 	
-	public void loadWords() {
-		
+	public void viewWordsScreen() {
+		removeAll();
+		add(viewWordList(), BorderLayout.PAGE_START);
+		revalidate();
 	}
 	
 	public void redraw() {
@@ -58,6 +61,9 @@ public class Main extends JPanel {
 				break;
 			case TEST:
 				multipleChoiceTest();
+				break;
+			case VIEW:
+				viewWordsScreen();
 				break;
 			default:
 				break;
@@ -132,6 +138,28 @@ public class Main extends JPanel {
 		
 		panel.add(buttonPanel, BorderLayout.CENTER);
 		
+		return panel;
+	}
+
+	public JPanel viewWordList() {
+		JPanel panel = new JPanel(new BorderLayout());
+		JTextPane textPane = new JTextPane();
+		textPane.setText("Word List");
+		textPane.setBackground(Color.GRAY);
+		StyledDocument doc = textPane.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		Font font = new Font("Courier", Font.BOLD, 42);
+		textPane.setFont(font);
+		panel.add(textPane, BorderLayout.PAGE_START);
+
+		JPanel wordList = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+
+		////get words somehow////
+
+		panel.add(wordList, BorderLayout.CENTER);
 		return panel;
 	}
 	
@@ -311,6 +339,14 @@ public class Main extends JPanel {
         }
     }
 
+    class escapeListener extends KeyAdapter {
+    	public void keyPressed(KeyEvent e) {
+    		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+    			guiSetting = GUISetting.MAIN;
+    			redraw();
+    		}
+    	}
+    }
 	class clickListener extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			JTextPane h = (JTextPane)e.getSource();
@@ -320,6 +356,18 @@ public class Main extends JPanel {
 	class actionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			switch (e.getActionCommand()) {
+				case "viewWords":
+					guiSetting = GUISetting.VIEW;
+					redraw();
+					break;
+				case "addWords":
+					guiSetting = GUISetting.ADD;
+					redraw();
+					break;
+				case "removeWords":
+					guiSetting = GUISetting.REMOVE;
+					redraw();
+					break;
 				case "timeToTest":
 					guiSetting = GUISetting.TEST;
 					redraw();
