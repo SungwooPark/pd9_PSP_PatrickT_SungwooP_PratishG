@@ -1,5 +1,6 @@
 `2014-06-05`
 - Completed multiple choice frame; awaiting infrastructure
+- Completed launch screen
 
 `2014-05-28`
 - Started planning of application

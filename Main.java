@@ -314,7 +314,6 @@ public class Main extends JPanel {
 	class clickListener extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			JTextPane h = (JTextPane)e.getSource();
-			System.out.println(h.getText());
 			h.setText("it works");
 		}
 	}
