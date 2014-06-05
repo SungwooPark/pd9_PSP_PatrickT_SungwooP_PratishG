@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -18,6 +19,8 @@ public class Main extends JPanel {
 	private JTextArea definition3;
 	private JTextArea definition4;
 
+	private JTextArea selectedBox;
+
 	public Main() {
         deck = new ArrayList<Card>();
         guiSetting = GUISetting.MAIN;
@@ -25,29 +28,44 @@ public class Main extends JPanel {
 		initializeGUI();
 	}
 
+	//this creates a text field containing the word; places at top middle
 	public void initializeGUI() {
+		setLayout(new BorderLayout());
 		word = new JTextField("testing");
 		word.setEditable(false);
 		word.setHorizontalAlignment(JTextField.CENTER);
 		Font font = new Font("Courier", Font.BOLD, 42);
 		word.setFont(font);
 
-		add(word, BorderLayout.CENTER);
-
-		JPanel chooseDefinition = new JPanel(new BorderLayout(2,2));
-		definition1 = new JTextArea("definition1 testing");
-		definition1.setPreferredSize(new Dimension(300,150));
-		chooseDefinition.add(definition1, BorderLayout.WEST);
-
-		//add(chooseDefinition, BorderLayout.SOUTH);
+		add(word, BorderLayout.PAGE_START);
+		add(choiceFields(), BorderLayout.CENTER);
 	}
 	
 	public void typeDefinitionVersion() {
 		
 	}
 	
-	public void multipleChoiceVersion() {
-		
+	//returns a JPanel containing definition choices
+	public JPanel choiceFields() {
+		JPanel choiceFields = new JPanel(new GridLayout(2,2));
+		//JPanel choiceFields = new JPanel(new GridBagLayout());
+		JSeparator horizSeparator = new JSeparator(SwingConstants.HORIZONTAL);
+		JSeparator vertSeparator = new JSeparator(SwingConstants.VERTICAL);
+		horizSeparator.setMaximumSize( new Dimension(Integer.MAX_VALUE, 1) );
+		definition1 = new JTextArea("definition1");
+		definition1.addMouseListener(new clickListener());
+		definition2 = new JTextArea("definition2");
+		definition2.addMouseListener(new clickListener());
+		definition3 = new JTextArea("definition3");
+		definition3.addMouseListener(new clickListener());
+		definition4 = new JTextArea("definition4");
+		definition4.addMouseListener(new clickListener());
+		choiceFields.add(definition1);
+		choiceFields.add(definition2);
+		choiceFields.add(definition3);
+		choiceFields.add(definition4);
+
+		return choiceFields;
 	}
 
 	public void loadWords() {
@@ -65,6 +83,7 @@ public class Main extends JPanel {
 
             Main m = new Main();
             frame.getContentPane().add(m);
+            //frame.getContentPane().add(m.choiceFields());
 			frame.pack();
             
 
@@ -171,27 +190,15 @@ public class Main extends JPanel {
         }
     }
 
-	/*
-    //~~~~~~~~~~~~ Painting class ~~~~~~~~~~~~~//
-    public void paintComponent(Graphics g) {
-    	super.paintComponent(g);
-    	switch (guiSetting) {
-    		case MAIN:
-    			break;
-    		case TESTING:
-    			break;
-    		case ADD:
-    			break;
-    		case REMOVE:
-    			break;
-    		case VIEW:
-    			break;
-    	}
-    }
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    */
-
     public enum GUISetting {
     	MAIN, TESTING, ADD, REMOVE, VIEW
+    }
+
+    class clickListener extends MouseAdapter {
+    	public void mouseClicked(MouseEvent e) {
+    		JTextArea selectedBox = e.getSource();
+    		System.out.println(selectedBox.getText());
+    		//System.out.println(e.getSource());
+    	}
     }
 }
