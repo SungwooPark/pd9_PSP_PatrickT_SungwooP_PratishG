@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferStrategy;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -20,22 +21,86 @@ public class Main extends JPanel {
 	private JTextPane definition3;
 	private JTextPane definition4;
 
-	private JTextArea selectedBox;
-
 	public Main() {
         deck = new ArrayList<Card>();
         guiSetting = GUISetting.MAIN;
         setPreferredSize(new Dimension(600, 400));
-		initializeGUI();
+		setLayout(new BorderLayout());
+		graphicalMainScreen();
 	}
 	
 	public enum GUISetting {
-    	MAIN, TESTING, ADD, REMOVE, VIEW
+    	MAIN, TEST, ADD, REMOVE, VIEW
     }
 
 	//this creates a text field containing the word; places at top middle
-	public void initializeGUI() {
-		setLayout(new BorderLayout());
+	public void graphicalMainScreen() {
+		removeAll();
+		add(drawMainScreen(), BorderLayout.CENTER);
+		revalidate();
+	}
+	
+	public void multipleChoiceTest() {
+		removeAll();
+		add(currentWord(), BorderLayout.PAGE_START);
+		add(choiceFields(), BorderLayout.CENTER);
+		revalidate();
+	}
+	
+	public void loadWords() {
+		
+	}
+	
+	public void redraw() {
+		switch (guiSetting) {
+			case MAIN:
+				graphicalMainScreen();
+				break;
+			case TEST:
+				multipleChoiceTest();
+				break;
+			default:
+				break;
+		}
+	}
+	
+	public static void main(String[] args){
+        JFrame frame = new JFrame("Flashcards");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setPreferredSize(new Dimension(600, 400));
+		frame.createBufferStrategy(2);
+
+        Main m = new Main();
+        frame.getContentPane().add(m);
+		frame.pack();
+    }
+	
+	///// heavy duty stuff below
+	public JPanel drawMainScreen() {
+		JPanel panel = new JPanel(new BorderLayout());
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setText("Flashcards");
+		Font font = new Font("Courier", Font.BOLD, 60);
+		textPane.setFont(font);
+		panel.add(textPane, BorderLayout.PAGE_START);
+		
+		JPanel buttonPanel = new JPanel(new GridLayout(0,1,0,10));
+		JButton test = new JButton("Test");
+		test.setPreferredSize(new Dimension(20, 10));
+		test.addActionListener(new actionListener());
+		test.setActionCommand("timeToTest");
+		buttonPanel.add(test, BorderLayout.CENTER);
+		
+		panel.add(buttonPanel, BorderLayout.CENTER);
+		
+		return panel;
+	}
+	
+	public JPanel currentWord() {
+		JPanel panel = new JPanel(new BorderLayout());
 		word = new JTextPane();
 		word.setText("testing");
 		word.setEditable(false);
@@ -46,15 +111,9 @@ public class Main extends JPanel {
 		Font font = new Font("Courier", Font.BOLD, 42);
 		word.setFont(font);
 		word.setBackground(new Color(176, 176, 176));
-
-		add(word, BorderLayout.PAGE_START);
-		add(choiceFields(), BorderLayout.CENTER);
+		panel.add(word);
+		return panel;
 	}
-	
-	public void typeDefinitionVersion() {
-		
-	}
-	
 	//returns a JPanel containing definition choices
 	public JPanel choiceFields() {
 		JPanel choiceFields = new JPanel(new GridLayout(2,2, 10, 10));
@@ -68,11 +127,6 @@ public class Main extends JPanel {
 		definition1.addMouseListener(new clickListener());
 		definition1.setEditable(false);
 		StyledDocument doc = definition1.getStyledDocument();
-		/*
-		SimpleAttributeSet attrs = new SimpleAttributeSet();
-		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-		doc.setParagraphAttributes(0, doc.getLength(), center, false);
-		*/
 		try {
             definition1.setEditorKit(new MyEditorKit());
             SimpleAttributeSet attrs=new SimpleAttributeSet();
@@ -86,12 +140,6 @@ public class Main extends JPanel {
 		definition2.setText("definition2");
 		definition2.addMouseListener(new clickListener());
 		definition2.setEditable(false);
-		/*
-		doc = definition2.getStyledDocument();
-		center = new SimpleAttributeSet();
-		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-		doc.setParagraphAttributes(0, doc.getLength(), center, false);
-		*/
 		try {
             definition2.setEditorKit(new MyEditorKit());
             SimpleAttributeSet attrs=new SimpleAttributeSet();
@@ -105,12 +153,6 @@ public class Main extends JPanel {
 		definition3.setText("definition4");
 		definition3.addMouseListener(new clickListener());
 		definition3.setEditable(false);
-		/*
-		doc = definition3.getStyledDocument();
-		center = new SimpleAttributeSet();
-		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-		doc.setParagraphAttributes(0, doc.getLength(), center, false);
-		*/
 		try {
             definition3.setEditorKit(new MyEditorKit());
             SimpleAttributeSet attrs=new SimpleAttributeSet();
@@ -124,12 +166,6 @@ public class Main extends JPanel {
 		definition4.setText("definition4");
 		definition4.addMouseListener(new clickListener());
 		definition4.setEditable(false);
-		/*
-		doc = definition4.getStyledDocument();
-		center = new SimpleAttributeSet();
-		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-		doc.setParagraphAttributes(0, doc.getLength(), center, false);
-		*/
 		try {
             definition4.setEditorKit(new MyEditorKit());
             SimpleAttributeSet attrs=new SimpleAttributeSet();
@@ -146,36 +182,6 @@ public class Main extends JPanel {
 
 		return choiceFields;
 	}
-
-	public void loadWords() {
-
-	}
-
-   	public static void main(String[] args){
-
-            JFrame frame = new JFrame("Flashcards");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-            frame.setPreferredSize(new Dimension(600, 400));
-			//frame.setSize(600, 400);
-
-            Main m = new Main();
-            frame.getContentPane().add(m);
-            //frame.getContentPane().add(m.choiceFields());
-			frame.pack();
-            
-
-            //Calls main screen method
-            while (true){
-                //m.repaint();
-                //m.mainScreen();
-                try {
-                    Thread.sleep(20);
-                } catch (InterruptedException e) {}
-            }
-        }
-	
 
         //Reads the txt file and add the words to the arraylist deck
         //txt file is formatted such that each line represent one word
@@ -268,21 +274,24 @@ public class Main extends JPanel {
             System.exit(0);
         }
     }
-	
-	/*
-    class clickListener extends MouseAdapter {
-    	public void mouseClicked(MouseEvent e) {
-    		//JTextArea selectedBox = e.getSource();
-    		//System.out.println(selectedBox.getText());
-    		//System.out.println(e.getSource());
-    	}
-    }
-	*/
+
 	class clickListener extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			JTextPane h = (JTextPane)e.getSource();
 			System.out.println(h.getText());
 			h.setText("it works");
+		}
+	}
+	class actionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			switch (e.getActionCommand()) {
+				case "timeToTest":
+					guiSetting = GUISetting.TEST;
+					redraw();
+					break;
+				default:
+					break;
+			}
 		}
 	}
 	
