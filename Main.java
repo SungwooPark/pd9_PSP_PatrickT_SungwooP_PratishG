@@ -27,6 +27,10 @@ public class Main extends JPanel {
         setPreferredSize(new Dimension(600, 400));
 		initializeGUI();
 	}
+	
+	public enum GUISetting {
+    	MAIN, TESTING, ADD, REMOVE, VIEW
+    }
 
 	//this creates a text field containing the word; places at top middle
 	public void initializeGUI() {
@@ -189,16 +193,20 @@ public class Main extends JPanel {
             System.exit(0);
         }
     }
-
-    public enum GUISetting {
-    	MAIN, TESTING, ADD, REMOVE, VIEW
-    }
-
+	
+	/*
     class clickListener extends MouseAdapter {
     	public void mouseClicked(MouseEvent e) {
-    		JTextArea selectedBox = e.getSource();
-    		System.out.println(selectedBox.getText());
+    		//JTextArea selectedBox = e.getSource();
+    		//System.out.println(selectedBox.getText());
     		//System.out.println(e.getSource());
     	}
     }
+	*/
+	class clickListener extends MouseAdapter {
+		public void mouseClicked(MouseEvent e) {
+			JTextArea h = (JTextArea)e.getSource();
+			System.out.println(h.getText());
+		}
+	}
 }
