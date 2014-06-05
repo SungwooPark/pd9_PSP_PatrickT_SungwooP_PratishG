@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.text.*;
 import java.nio.file.*;
 import java.io.*;
 import java.nio.charset.*;
@@ -14,10 +15,10 @@ public class Main extends JPanel {
 	private GUISetting guiSetting;
 
 	private JTextField word;
-	private JTextArea definition1;
-	private JTextArea definition2;
-	private JTextArea definition3;
-	private JTextArea definition4;
+	private JTextPane definition1;
+	private JTextPane definition2;
+	private JTextPane definition3;
+	private JTextPane definition4;
 
 	private JTextArea selectedBox;
 
@@ -51,19 +52,48 @@ public class Main extends JPanel {
 	
 	//returns a JPanel containing definition choices
 	public JPanel choiceFields() {
-		JPanel choiceFields = new JPanel(new GridLayout(2,2));
+		JPanel choiceFields = new JPanel(new GridLayout(2,2, 10, 10));
 		//JPanel choiceFields = new JPanel(new GridBagLayout());
 		JSeparator horizSeparator = new JSeparator(SwingConstants.HORIZONTAL);
 		JSeparator vertSeparator = new JSeparator(SwingConstants.VERTICAL);
 		horizSeparator.setMaximumSize( new Dimension(Integer.MAX_VALUE, 1) );
-		definition1 = new JTextArea("definition1");
+		
+		definition1 = new JTextPane();
+		definition1.setText("definition1");
 		definition1.addMouseListener(new clickListener());
-		definition2 = new JTextArea("definition2");
+		definition1.setEditable(false);
+		StyledDocument doc = definition1.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		
+		definition2 = new JTextPane();
+		definition2.setText("definition2");
 		definition2.addMouseListener(new clickListener());
-		definition3 = new JTextArea("definition3");
+		definition2.setEditable(false);
+		doc = definition2.getStyledDocument();
+		center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		
+		definition3 = new JTextPane();
+		definition3.setText("definition4");
 		definition3.addMouseListener(new clickListener());
-		definition4 = new JTextArea("definition4");
+		definition3.setEditable(false);
+		doc = definition3.getStyledDocument();
+		center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		
+		definition4 = new JTextPane();
+		definition4.setText("definition4");
 		definition4.addMouseListener(new clickListener());
+		definition4.setEditable(false);
+		doc = definition4.getStyledDocument();
+		center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		
 		choiceFields.add(definition1);
 		choiceFields.add(definition2);
 		choiceFields.add(definition3);
@@ -205,7 +235,7 @@ public class Main extends JPanel {
 	*/
 	class clickListener extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
-			JTextArea h = (JTextArea)e.getSource();
+			JTextPane h = (JTextPane)e.getSource();
 			System.out.println(h.getText());
 		}
 	}
