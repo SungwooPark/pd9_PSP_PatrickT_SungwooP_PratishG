@@ -14,7 +14,7 @@ public class Main extends JPanel {
 	private ArrayList<Card> deck;
 	private GUISetting guiSetting;
 
-	private JTextField word;
+	private JTextPane word;
 	private JTextPane definition1;
 	private JTextPane definition2;
 	private JTextPane definition3;
@@ -36,11 +36,16 @@ public class Main extends JPanel {
 	//this creates a text field containing the word; places at top middle
 	public void initializeGUI() {
 		setLayout(new BorderLayout());
-		word = new JTextField("testing");
+		word = new JTextPane();
+		word.setText("testing");
 		word.setEditable(false);
-		word.setHorizontalAlignment(JTextField.CENTER);
+		StyledDocument doc = word.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
 		Font font = new Font("Courier", Font.BOLD, 42);
 		word.setFont(font);
+		word.setBackground(new Color(176, 176, 176));
 
 		add(word, BorderLayout.PAGE_START);
 		add(choiceFields(), BorderLayout.CENTER);
@@ -63,36 +68,76 @@ public class Main extends JPanel {
 		definition1.addMouseListener(new clickListener());
 		definition1.setEditable(false);
 		StyledDocument doc = definition1.getStyledDocument();
-		SimpleAttributeSet center = new SimpleAttributeSet();
+		/*
+		SimpleAttributeSet attrs = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		*/
+		try {
+            definition1.setEditorKit(new MyEditorKit());
+            SimpleAttributeSet attrs=new SimpleAttributeSet();
+            StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
+            doc=(StyledDocument)definition1.getDocument();
+            doc.insertString(0,"definition1",attrs);
+            doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
+        } catch (Exception e) {}
 		
 		definition2 = new JTextPane();
 		definition2.setText("definition2");
 		definition2.addMouseListener(new clickListener());
 		definition2.setEditable(false);
+		/*
 		doc = definition2.getStyledDocument();
 		center = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		*/
+		try {
+            definition2.setEditorKit(new MyEditorKit());
+            SimpleAttributeSet attrs=new SimpleAttributeSet();
+            StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
+            doc=(StyledDocument)definition2.getDocument();
+            doc.insertString(0,"definition2",attrs);
+            doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
+        } catch (Exception e) {}
 		
 		definition3 = new JTextPane();
 		definition3.setText("definition4");
 		definition3.addMouseListener(new clickListener());
 		definition3.setEditable(false);
+		/*
 		doc = definition3.getStyledDocument();
 		center = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		*/
+		try {
+            definition3.setEditorKit(new MyEditorKit());
+            SimpleAttributeSet attrs=new SimpleAttributeSet();
+            StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
+            doc=(StyledDocument)definition3.getDocument();
+            doc.insertString(0,"definition3",attrs);
+            doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
+        } catch (Exception e) {}
 		
 		definition4 = new JTextPane();
 		definition4.setText("definition4");
 		definition4.addMouseListener(new clickListener());
 		definition4.setEditable(false);
+		/*
 		doc = definition4.getStyledDocument();
 		center = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		*/
+		try {
+            definition4.setEditorKit(new MyEditorKit());
+            SimpleAttributeSet attrs=new SimpleAttributeSet();
+            StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
+            doc=(StyledDocument)definition4.getDocument();
+            doc.insertString(0,"definition4",attrs);
+            doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
+        } catch (Exception e) {}
 		
 		choiceFields.add(definition1);
 		choiceFields.add(definition2);
@@ -237,6 +282,63 @@ public class Main extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			JTextPane h = (JTextPane)e.getSource();
 			System.out.println(h.getText());
+			h.setText("it works");
 		}
 	}
+	
+	class MyEditorKit extends StyledEditorKit {
+
+		public ViewFactory getViewFactory() {
+			return new StyledViewFactory();
+		}
+	 
+		class StyledViewFactory implements ViewFactory {
+
+			public View create(Element elem) {
+				String kind = elem.getName();
+				if (kind != null) {
+					if (kind.equals(AbstractDocument.ContentElementName)) {
+
+						return new LabelView(elem);
+					} else if (kind.equals(AbstractDocument.ParagraphElementName)) {
+						return new ParagraphView(elem);
+					} else if (kind.equals(AbstractDocument.SectionElementName)) {
+
+						return new CenteredBoxView(elem, View.Y_AXIS);
+					} else if (kind.equals(StyleConstants.ComponentElementName)) {
+						return new ComponentView(elem);
+					} else if (kind.equals(StyleConstants.IconElementName)) {
+
+						return new IconView(elem);
+					}
+				}
+	 
+				return new LabelView(elem);
+			}
+
+		}
+	}
+	 
+	class CenteredBoxView extends BoxView {
+		public CenteredBoxView(Element elem, int axis) {
+
+			super(elem,axis);
+		}
+		protected void layoutMajorAxis(int targetSpan, int axis, int[] offsets, int[] spans) {
+
+			super.layoutMajorAxis(targetSpan,axis,offsets,spans);
+			int textBlockHeight = 0;
+			int offset = 0;
+	 
+			for (int i = 0; i < spans.length; i++) {
+
+				textBlockHeight = spans[i];
+			}
+			offset = (targetSpan - textBlockHeight) / 2;
+			for (int i = 0; i < offsets.length; i++) {
+				offsets[i] += offset;
+			}
+
+		}
+	}    
 }

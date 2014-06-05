@@ -1,3 +1,6 @@
+`2014-06-05`
+- Completed multiple choice frame; awaiting infrastructure
+
 `2014-05-28`
 - Started planning of application
 - Members assigned work on main classes (Main, Card, Test)
