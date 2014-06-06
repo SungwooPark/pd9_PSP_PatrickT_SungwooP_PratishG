@@ -10,8 +10,8 @@ This application will:
 - Ensure learning of input!
 
 <h4>Behind the Scenes</h4>
-- <b>Flash Card App</b> uses an ArrayList of LinkedLists. Each time a word is entered, a new LinkedList is created.
-- The LinkedList will contain attributes associated with the word, such as the definition.
-- A random LinkedList (word, definition, etc.) from the ArrayList will be chosen when the user clicks a button.
-- If the user gets the item correct, great!
-- If the user gets it incorrect, a copy of the LinkedList will be added to the ArrayList, increasing that term's frequency in the ArrayList.
+- <b>Flash Card App</b> uses an arraylist of card objects. A card object represents a single flash card, and new card is added to the arraylist when user enters a new word.
+- A random queue is used to randomly choose a word and test a user.
+- When user clicks a testing button, a random queue with words that a user previously inputted is iniatialized.
+- When a user gets a word correct, instance of that word is removed from random queue, thus decreasing the frequency of that word being chosen again.
+- When a user gets a word incorrectly, opposite happens. Instead of removing a word, another instance of that word is created and added to the random queue. 
