@@ -1,3 +1,5 @@
+//taken from AP251 basement, and modified to include a getSize() function to improve usage with what we  need to do.
+
 public class RQueue<T> implements Queue<T> {
 	
 	
