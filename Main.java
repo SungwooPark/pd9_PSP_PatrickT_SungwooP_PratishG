@@ -154,12 +154,23 @@ public class Main extends JPanel {
 		textPane.setFont(font);
 		panel.add(textPane, BorderLayout.PAGE_START);
 
-		JPanel wordList = new JPanel(new GridBagLayout());
+		JPanel wordListPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
 		////get words somehow////
+		JTextPane wordList = new JTextPane();
+		JScrollPane wordListScroll = new JScrollPane();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		wordListScroll.add(wordList, c);
 
-		panel.add(wordList, BorderLayout.CENTER);
+		JTextPane definitionList = new JTextPane();
+		JScrollPane defListScroll = new JScrollPane();
+		defListScroll.add(definitionList);
+
+		wordListPanel.add(wordListScroll, BorderLayout.WEST);
+		wordListPanel.add(defListScroll, BorderLayout.CENTER);
+
+		panel.add(wordListPanel, BorderLayout.CENTER);
 		return panel;
 	}
 	
