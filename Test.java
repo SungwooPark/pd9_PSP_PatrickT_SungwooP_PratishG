@@ -23,6 +23,7 @@ public class Test{
 			}
 		}
 		//this selects the word from the random queue
+                //Shouldn't this be dequeue? This does not shuffle the words.
 	private Card picker(){
 		retWord = Testable.peekFront();
 		
@@ -34,24 +35,33 @@ public class Test{
 	//populate an array with wrong, and right words.	
 	private String[] choicesPopulate(){
 		Random  r = new Random();
-		String[] Choices = new String[4];
+		//Changed var name Choices to choices. We usually make var name lowercase.
+                String[] choices = new String[4];
 		rightWord = picker();
-		for (int i = 0; i < 1, i ++){
+		/* This while loop is unnecessary.
+                 * for (int i = 0; i < 1, i ++){
 			Choices[r.nextInt(4)] = rightWord.getDef();
-			}
+			}*/
+                choices[r.nextInt(4)] = rightWord.getDef();
 		for (int i = 0; i < 3; i ++){
-			if(Choices[i] == null){
-				Choices[i]=Testable.peekFront().getDef();
-			else if(Choices[i] != null){
-				Choices[i+1] = Testable.peekFront().getDef();
+			if(choices[i] == null){
+                                //Don't we have to use dequeue here too? Why peekfront?
+				choices[i]=Testable.peekFront().getDef();
+			else if(choices[i] != null){
+                                //Same here
+				choices[i+1] = Testable.peekFront().getDef();
 				}
 			}
 		}
+                //Return arraylist with the definition choice for user
+                reurn choices
 	}
 	
-	
-	public boolean Tester(int Selected){
-		if(Choices.getIndex(rightWord.getDef()) == Selected){
+	//Changed Selected to selected
+	public boolean Tester(int selected){
+                //There is no getIndex method for an arraylist. I think we have to make a instance variable that stores the index of right word and compare it with the
+                //argument in this method
+		if(choices.getIndex(rightWord.getDef()) == selected){
 			return true;
 			}
 		else{
@@ -61,7 +71,8 @@ public class Test{
 			
 		//actual tester
 		
-		
+	
+        //*******What happened with this code? Why are we not using it?
 		//Unused section, kept just in case.
 	//If user gets it right, remove word from the queue, else add the word.  If no more words left inform user
 	/*
