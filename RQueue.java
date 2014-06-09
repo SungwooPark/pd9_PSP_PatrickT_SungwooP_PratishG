@@ -52,13 +52,6 @@ public class RQueue<T> implements Queue<T> {
 	return _front.getValue();
     }
 
-
-    /******************************************
-     * void sample() -- a means of "shuffling" the queue
-     * Algo:
-     * Move front element to end, x times.
-     *  ( 0 <= x < queue size - 1 )
-    ******************************************/
     public void sample () {
 	int cycles = (int)( _size * Math.random() );
 	for( int i = 0; i < cycles; i++ )
@@ -69,7 +62,6 @@ public class RQueue<T> implements Queue<T> {
     public boolean isEmpty() { return _front == null; }//O(1)
 
 
-    // print each node, separated by spaces
     public String toString() { 
 	String foo = "";
 	LLNode<T> tmp = _front;
@@ -82,6 +74,5 @@ public class RQueue<T> implements Queue<T> {
 
 
 
-    //main method for testing
     
 }//end class RQueue
