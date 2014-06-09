@@ -1,14 +1,20 @@
+import java.math.*;
+import java.util.*;
+
 public class Test{
+	public Card rightWord;
+	//private int choice;
 	private RQueue<Card> Testable;
 	public Test(ArrayList<Card> Words){
 		
 	//Random Queue with words from ArrayList.
 		Testable = new RQueue();
 		for(Card x: Words){
-		
+		//initial adding.  make it two?
+			Testable.engueue(x);
 			Testable.enqueue(x);
-			if(x.getNumWrong > 0){
-				int numElem = x.getNumWrong;
+			if(x.getNumWrong() > 0){
+				int numElem = x.getNumWrong();
 				while (numElem > 0){
 					Testable.enqueue(x);
 					numElem --;
@@ -18,31 +24,83 @@ public class Test{
 		}
 		//this selects the word from the random queue
 	private Card picker(){
-		Card returner = Testable.peekFront();
-		return returner;
+		retWord = Testable.peekFront();
+		
+		return retWord;
 		}
 		
+		
+		
+	//populate an array with wrong, and right words.	
+	private String[] choicesPopulate(){
+		Random  r = new Random();
+		String[] Choices = new String[4];
+		rightWord = picker();
+		for (int i = 0; i < 1, i ++){
+			Choices[r.nextInt(4)] = rightWord.getDef();
+			}
+		for (int i = 0; i < 3; i ++){
+			if(Choices[i] == null){
+				Choices[i]=Testable.peekFront().getDef();
+			else if(Choices[i] != null){
+				Choices[i+1] = Testable.peekFront().getDef();
+				}
+			}
+		}
+	}
+	
+	
+	public boolean Tester(int Selected){
+		if(Choices.getIndex(rightWord.getDef()) == Selected){
+			return true;
+			}
+		else{
+			return false;
+	
+	
+			
 		//actual tester
+		
+		
+		//Unused section, kept just in case.
 	//If user gets it right, remove word from the queue, else add the word.  If no more words left inform user
+	/*
 	public 	void Tester(int Selected){
-		Card rightWord = picker();
+		Word = picker();
 		Random r = new Random();
-		String[] Choices = new Array(4);
-		for(int i = 0;i<3;i++){
-			Choices[r.nextInt(4)] = picker().getDef();
+		String[] Choices = new String[4];
+		for(int i = 0;i<1;i++){
+			Choices[r.nextInt(4)] = Word.getDef();
 		}
 		for(int m = 0; m < Choices.length; m++){
 			if (Choices[m] == null){
-				Choices[m] = rightWord.getDef();
+				Choices[m] = Word.getDef();
 			}
 		}
-		if(Choices[Selected] == rightWord.getDef()){
+		if(Choices[Selected] == Word.getDef()){
 			System.out.println("You are Correct");
-		}
+
+			
+			int counter = 0;
+			while(counter < Choices.length){
+			for (int counter = 0; counter < Choices.length; counter ++){
+				String [] Choices2 = new String[Choices.length - 1];
+				if(counter == Selected){
+					counter ++;
+					}
+				else {
+					if(counter < Choices2.length){
+						Choices2[counter] = Choices[counter];
+					}
+					else if(counter >= Choices2.length){
+						for(int goThru = 0; goThru < Choices2.length; goThru++){
+							if(Choices[goThru] = null){
+								Choices2[goThru] =
+						
 		else{
 			System.out.println("Sorry, Wrong Answer, Right Answer is: " + rightWord.getDef());
 		}
 		}
 }	
-	//unsure how exactly the program would work, how would it check if it user's response is right or wrong	
 
+*/
