@@ -24,6 +24,7 @@ public class Main extends JPanel {
 	public Main() {
         deck = new ArrayList<Card>();
         guiSetting = GUISetting.MAIN;
+        setFocusable(true);
         addKeyListener(new escapeListener());
         setPreferredSize(new Dimension(600, 400));
 		setLayout(new BorderLayout());
@@ -45,12 +46,16 @@ public class Main extends JPanel {
 		removeAll();
 		add(currentWord(), BorderLayout.PAGE_START);
 		add(choiceFields(), BorderLayout.CENTER);
+		setFocusable(true);
+		addKeyListener(new escapeListener());
 		revalidate();
 	}
 	
 	public void viewWordsScreen() {
 		removeAll();
 		add(viewWordList(), BorderLayout.PAGE_START);
+		setFocusable(true);
+		addKeyListener(new escapeListener());
 		revalidate();
 	}
 	
@@ -65,6 +70,10 @@ public class Main extends JPanel {
 			case VIEW:
 				viewWordsScreen();
 				break;
+			case ADD:
+				break;
+			case REMOVE:
+				break;
 			default:
 				break;
 		}
@@ -76,7 +85,7 @@ public class Main extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setPreferredSize(new Dimension(600, 400));
-		frame.createBufferStrategy(2);
+
 
         Main m = new Main();
         frame.getContentPane().add(m);
@@ -160,15 +169,17 @@ public class Main extends JPanel {
 		////get words somehow////
 		JTextPane wordList = new JTextPane();
 		JScrollPane wordListScroll = new JScrollPane();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		wordListScroll.add(wordList, c);
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		wordListScroll.add(wordList);
+		wordListPanel.add(wordListScroll, c);
 
 		JTextPane definitionList = new JTextPane();
 		JScrollPane defListScroll = new JScrollPane();
+		c.gridx = 1;
 		defListScroll.add(definitionList);
-
-		wordListPanel.add(wordListScroll, BorderLayout.WEST);
-		wordListPanel.add(defListScroll, BorderLayout.CENTER);
+		wordListPanel.add(defListScroll, c);
 
 		panel.add(wordListPanel, BorderLayout.CENTER);
 		return panel;
@@ -187,6 +198,7 @@ public class Main extends JPanel {
 		word.setFont(font);
 		word.setBackground(new Color(176, 176, 176));
 		panel.add(word);
+
 		return panel;
 	}
 	//returns a JPanel containing definition choices
