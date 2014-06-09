@@ -11,7 +11,7 @@ public class Test{
 		Testable = new RQueue();
 		for(Card x: Words){
 		//initial adding.  make it two?
-			Testable.engueue(x);
+			Testable.enqueue(x);
 			Testable.enqueue(x);
 			if(x.getNumWrong() > 0){
 				int numElem = x.getNumWrong();
@@ -25,10 +25,10 @@ public class Test{
 		//this selects the word from the random queue
                 //Shouldn't this be dequeue? This does not shuffle the words.
 	private Card picker(){
-		retWord = Testable.peekFront();
+		Card retWord = Testable.peekFront();
 		
 		return retWord;
-		}
+	}
 		
 		
 		
@@ -47,14 +47,14 @@ public class Test{
 			if(choices[i] == null){
                                 //Don't we have to use dequeue here too? Why peekfront?
 				choices[i]=Testable.peekFront().getDef();
+			}
 			else if(choices[i] != null){
                                 //Same here
 				choices[i+1] = Testable.peekFront().getDef();
-				}
 			}
 		}
                 //Return arraylist with the definition choice for user
-                reurn choices
+        return choices;
 	}
 	
 	//Changed Selected to selected
@@ -66,8 +66,9 @@ public class Test{
 			}
 		else{
 			return false;
-	
-	
+		}
+	}
+}
 			
 		//actual tester
 		
@@ -112,6 +113,7 @@ public class Test{
 			System.out.println("Sorry, Wrong Answer, Right Answer is: " + rightWord.getDef());
 		}
 		}
-}	
+	*/
+//}	
 
-*/
+
