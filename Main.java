@@ -21,6 +21,8 @@ public class Main extends JPanel {
 	private JTextPane definition3;
 	private JTextPane definition4;
 
+	private long currentTime;
+
 	public Main() {
         deck = new ArrayList<Card>();
         guiSetting = GUISetting.MAIN;
@@ -49,6 +51,7 @@ public class Main extends JPanel {
 		setFocusable(true);
 		addKeyListener(new escapeListener());
 		revalidate();
+		currentTime = System.currentTimeMillis();
 	}
 	
 	public void viewWordsScreen() {
@@ -90,6 +93,25 @@ public class Main extends JPanel {
         Main m = new Main();
         frame.getContentPane().add(m);
 		frame.pack();
+    }
+
+    public JPanel timer() {
+    	JPanel panel = new JPanel();
+    	JTextPane timerPane = new JTextPane();
+    	Font font = new Font("Courier", Font.PLAIN, 30);
+    	timerPane.setFont(font);
+
+    	if (System.currentTimeMillis() - currentTime > 1000){
+    		currentTime = System.currentTimeMillis();
+    		timerPane.setText((currentTime / 60000) + ":" + (currentTime / 1000));
+    		panel.add(timerPane);
+    		return panel;
+    	}
+    	else {
+			timerPane.setText((currentTime / 60000) + ":" + (currentTime / 1000));
+    		panel.add(timerPane);
+    		return panel;
+    	}
     }
 	
 	///// heavy duty stuff below
