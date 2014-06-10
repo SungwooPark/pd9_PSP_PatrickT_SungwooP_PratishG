@@ -100,18 +100,18 @@ public class Main extends JPanel {
     	JTextPane timerPane = new JTextPane();
     	Font font = new Font("Courier", Font.PLAIN, 30);
     	timerPane.setFont(font);
+    	panel.setBackground(Color.GRAY);
 
     	if (System.currentTimeMillis() - currentTime > 1000){
     		currentTime = System.currentTimeMillis();
     		timerPane.setText((currentTime / 60000) + ":" + (currentTime / 1000));
     		panel.add(timerPane);
-    		return panel;
     	}
     	else {
 			timerPane.setText((currentTime / 60000) + ":" + (currentTime / 1000));
     		panel.add(timerPane);
-    		return panel;
     	}
+    	return panel;
     }
 	
 	///// heavy duty stuff below
@@ -190,7 +190,8 @@ public class Main extends JPanel {
 
 		////get words somehow////
 		JTextPane wordList = new JTextPane();
-		JScrollPane wordListScroll = new JScrollPane();
+		JScrollPane wordListScroll = new JScrollPane(wordList);
+		wordListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		c.fill = GridBagConstraints.VERTICAL;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -198,11 +199,13 @@ public class Main extends JPanel {
 		wordListPanel.add(wordListScroll, c);
 
 		JTextPane definitionList = new JTextPane();
-		JScrollPane defListScroll = new JScrollPane();
+		JScrollPane defListScroll = new JScrollPane(definitionList);
+		defListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		c.gridx = 1;
 		defListScroll.add(definitionList);
 		wordListPanel.add(defListScroll, c);
 
+		wordList.setText("testing");
 		panel.add(wordListPanel, BorderLayout.CENTER);
 		return panel;
 	}
