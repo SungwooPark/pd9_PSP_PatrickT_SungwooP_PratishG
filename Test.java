@@ -25,8 +25,9 @@ public class Test{
 		//this selects the word from the random queue
                 //Shouldn't this be dequeue? This does not shuffle the words.
 	private Card picker(){
-		Card retWord = Testable.peekFront();
-		
+		//Card retWord = Testable.peekFront();
+		Card retWord = Testable.dequeue();  //when it populates it.
+		//Testable.enqueue(retWord)
 		return retWord;
 	}
 		
@@ -35,7 +36,7 @@ public class Test{
 	//populate an array with wrong, and right words.	
 	private String[] choicesPopulate(){
 		Random  r = new Random();
-		//Changed var name Choices to choices. We usually make var name lowercase.
+		//Changed var name Choices to choices. We usually make var name lowercase.ok
                 String[] choices = new String[4];
 		rightWord = picker();
 		/* This while loop is unnecessary.
@@ -45,27 +46,33 @@ public class Test{
                 choices[r.nextInt(4)] = rightWord.getDef();
 		for (int i = 0; i < 3; i ++){
 			if(choices[i] == null){
-                                //Don't we have to use dequeue here too? Why peekfront?
-				choices[i]=Testable.peekFront().getDef();
+                                //Don't we have to use dequeue here too? Why peekfront?right. my bad
+				choices[i]=Testable.dequeue().getDef();
+				Testable.enqueue(choices[i]);
 			}
 			else if(choices[i] != null){
                                 //Same here
-				choices[i+1] = Testable.peekFront().getDef();
+				choices[i + 1]=Testable.dequeue().getDef();
+				Testable.enqueue(choices[i + 1]);
 			}
 		}
-                //Return arraylist with the definition choice for user
+                //Returns an array with the definition choice for user
         return choices;
 	}
 	
 	//Changed Selected to selected
+	
+	//It's not an array list, it's an array.
 	public boolean Tester(int selected){
                 //There is no getIndex method for an arraylist. I think we have to make a instance variable that stores the index of right word and compare it with the
                 //argument in this method
+                //it's an array, lol.
 		if(choices.getIndex(rightWord.getDef()) == selected){
 			return true;
 			}
 		else{
 			return false;
+			Testable.enqueue(rightWord);
 		}
 	}
 }
