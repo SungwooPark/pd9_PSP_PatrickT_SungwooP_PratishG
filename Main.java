@@ -192,7 +192,7 @@ public class Main extends JPanel {
 	}
 
 	public JPanel viewWordList() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	/*
 		JPanel panel = new JPanel(new BorderLayout());
 		JTextPane textPane = new JTextPane();
@@ -206,6 +206,7 @@ public class Main extends JPanel {
 		textPane.setFont(font);
 		panel.add(textPane, BorderLayout.PAGE_START);
 	*/
+		/*
 	
 		JPanel wordListPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -231,6 +232,18 @@ public class Main extends JPanel {
 
 		wordList.setText("testing");
 		panel.add(wordListPanel, BorderLayout.CENTER);
+		return panel;
+		*/
+		JTextPane words = new JTextPane();
+		words.setPreferredSize(new Dimension(300, 200));
+		JScrollPane wordsScroll = new JScrollPane(words);
+		wordsScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+		panel.add(wordsScroll);
+
+		for (int i = 0; i < deck.size(); i++) {
+			words.setText(words.getText() + deck.get(i).getName() + "\n");
+		}
 		return panel;
 	}
 	
