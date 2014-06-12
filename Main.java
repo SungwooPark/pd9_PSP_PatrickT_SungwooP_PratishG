@@ -77,6 +77,7 @@ public class Main extends JPanel {
 				viewWordsScreen();
 				break;
 			case ADD:
+				addWord();
 				break;
 			case REMOVE:
 				break;
@@ -193,47 +194,7 @@ public class Main extends JPanel {
 
 	public JPanel viewWordList() {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-	/*
-		JPanel panel = new JPanel(new BorderLayout());
-		JTextPane textPane = new JTextPane();
-		textPane.setText("Word List");
-		textPane.setBackground(Color.GRAY);
-		StyledDocument doc = textPane.getStyledDocument();
-		SimpleAttributeSet center = new SimpleAttributeSet();
-		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-		doc.setParagraphAttributes(0, doc.getLength(), center, false);
-		Font font = new Font("Courier", Font.BOLD, 42);
-		textPane.setFont(font);
-		panel.add(textPane, BorderLayout.PAGE_START);
-	*/
-		/*
-	
-		JPanel wordListPanel = new JPanel(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
 
-		////get words somehow////
-		JTextPane wordList = new JTextPane();
-		wordList.setPreferredSize(new Dimension(100, 300));
-		JScrollPane wordListScroll = new JScrollPane(wordList);
-		wordListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		c.fill = GridBagConstraints.VERTICAL;
-		c.gridx = 0;
-		c.gridy = 0;
-		wordListScroll.add(wordList);
-		wordListPanel.add(wordListScroll, c);
-
-		JTextPane definitionList = new JTextPane();
-		definitionList.setPreferredSize(new Dimension(100, 300));
-		JScrollPane defListScroll = new JScrollPane(definitionList);
-		defListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		c.gridx = 1;
-		defListScroll.add(definitionList);
-		wordListPanel.add(defListScroll, c);
-
-		wordList.setText("testing");
-		panel.add(wordListPanel, BorderLayout.CENTER);
-		return panel;
-		*/
 		JTextPane words = new JTextPane();
 		words.setPreferredSize(new Dimension(300, 200));
 		JScrollPane wordsScroll = new JScrollPane(words);
@@ -245,6 +206,22 @@ public class Main extends JPanel {
 			words.setText(words.getText() + deck.get(i).getName() + "\n");
 		}
 		return panel;
+	}
+
+	public void addWord() {
+		JPanel inputPane = new JPanel(new BorderLayout());
+		JTextField word = new JTextField();
+		JTextArea definition = new JTextArea();
+		inputPane.add(word, BorderLayout.PAGE_START);
+		inputPane.add(definition, BorderLayout.CENTER);
+
+		String result = JOptionPane.showInputDialog(this, inputPane);
+		/*
+		if (result == JOptionPane.YES_OPTION) {
+			Card newCard = new Card(word.getText(), definition.getText());
+			deck.add(newCard);
+		}
+		*/
 	}
 	
 	public JPanel currentWord() {
