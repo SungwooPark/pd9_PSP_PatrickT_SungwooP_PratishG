@@ -4,6 +4,7 @@ import java.util.*;
 public class Test{
 	public Card rightWord;
 	//private int choice;
+	private String[] choices;
 	private RQueue<Card> Testable;
 	private rightIndex; //Index of position for right index
         
@@ -13,7 +14,7 @@ public class Test{
 		Testable = new RQueue();
 		for(Card x: Words){
 		//initial adding.  make it two?
-			Testable.engueue(x);
+			Testable.enqueue(x);
 			Testable.enqueue(x);
 			if(x.getNumWrong() > 0){
 				int numElem = x.getNumWrong();
@@ -31,15 +32,15 @@ public class Test{
 		Card retWord = Testable.dequeue(); //changed peekfront to dequeue
 		
 		return retWord;
-		}
+	}
 		
 		
 		
 	//populate an array with wrong, and right words.	
 	private String[] choicesPopulate(){
 		Random  r = new Random();
-		//Changed var name Choices to choices. We usually make var name lowercase.
-                String[] choices = new String[4];
+		//Changed var name Choices to choices. We usually make var name lowercase.ok
+    	choices = new String[4];
 		rightWord = picker();
 		/* This while loop is unnecessary.
                  * for (int i = 0; i < 1, i ++){
@@ -58,6 +59,8 @@ public class Test{
 	}
 	
 	//Changed Selected to selected
+	
+	//It's not an array list, it's an array.
 	public boolean Tester(int selected){
                 //There is no getIndex method for an arraylist. I think we have to make a instance variable that stores the index of right word and compare it with the
             return rightIndex == selected;
@@ -106,6 +109,6 @@ public class Test{
 			System.out.println("Sorry, Wrong Answer, Right Answer is: " + rightWord.getDef());
 		}
 		}
-}	
+	*/
+//}	
 
-*/

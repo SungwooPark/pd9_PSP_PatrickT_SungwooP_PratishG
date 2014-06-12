@@ -21,13 +21,18 @@ public class Main extends JPanel {
 	private JTextPane definition3;
 	private JTextPane definition4;
 
+	private long currentTime;
+
 	public Main() {
         deck = new ArrayList<Card>();
         guiSetting = GUISetting.MAIN;
+        setFocusable(true);
         addKeyListener(new escapeListener());
         setPreferredSize(new Dimension(600, 400));
 		setLayout(new BorderLayout());
 		graphicalMainScreen();
+
+		populateDeck();
 	}
 	
 	public enum GUISetting {
@@ -45,12 +50,18 @@ public class Main extends JPanel {
 		removeAll();
 		add(currentWord(), BorderLayout.PAGE_START);
 		add(choiceFields(), BorderLayout.CENTER);
+		setFocusable(true);
+		addKeyListener(new escapeListener());
 		revalidate();
+		currentTime = System.currentTimeMillis();
 	}
 	
 	public void viewWordsScreen() {
 		removeAll();
-		add(viewWordList(), BorderLayout.PAGE_START);
+		add(viewWordListTop(), BorderLayout.PAGE_START);
+		add(viewWordList(), BorderLayout.CENTER);
+		setFocusable(true);
+		addKeyListener(new escapeListener());
 		revalidate();
 	}
 	
@@ -65,6 +76,10 @@ public class Main extends JPanel {
 			case VIEW:
 				viewWordsScreen();
 				break;
+			case ADD:
+				break;
+			case REMOVE:
+				break;
 			default:
 				break;
 		}
@@ -76,11 +91,30 @@ public class Main extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setPreferredSize(new Dimension(600, 400));
-		frame.createBufferStrategy(2);
+
 
         Main m = new Main();
         frame.getContentPane().add(m);
 		frame.pack();
+    }
+
+    public JPanel timer() {
+    	JPanel panel = new JPanel();
+    	JTextPane timerPane = new JTextPane();
+    	Font font = new Font("Courier", Font.PLAIN, 30);
+    	timerPane.setFont(font);
+    	panel.setBackground(Color.GRAY);
+
+    	if (System.currentTimeMillis() - currentTime > 1000){
+    		currentTime = System.currentTimeMillis();
+    		timerPane.setText((currentTime / 60000) + ":" + (currentTime / 1000));
+    		panel.add(timerPane);
+    	}
+    	else {
+			timerPane.setText((currentTime / 60000) + ":" + (currentTime / 1000));
+    		panel.add(timerPane);
+    	}
+    	return panel;
     }
 	
 	///// heavy duty stuff below
@@ -140,8 +174,8 @@ public class Main extends JPanel {
 		
 		return panel;
 	}
-
-	public JPanel viewWordList() {
+	
+	public JPanel viewWordListTop() {
 		JPanel panel = new JPanel(new BorderLayout());
 		JTextPane textPane = new JTextPane();
 		textPane.setText("Word List");
@@ -153,23 +187,49 @@ public class Main extends JPanel {
 		Font font = new Font("Courier", Font.BOLD, 42);
 		textPane.setFont(font);
 		panel.add(textPane, BorderLayout.PAGE_START);
+		
+		return panel;
+	}
 
+	public JPanel viewWordList() {
+		JPanel panel = new JPanel(new BorderLayout());
+	/*
+		JPanel panel = new JPanel(new BorderLayout());
+		JTextPane textPane = new JTextPane();
+		textPane.setText("Word List");
+		textPane.setBackground(Color.GRAY);
+		StyledDocument doc = textPane.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		Font font = new Font("Courier", Font.BOLD, 42);
+		textPane.setFont(font);
+		panel.add(textPane, BorderLayout.PAGE_START);
+	*/
+	
 		JPanel wordListPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
 		////get words somehow////
 		JTextPane wordList = new JTextPane();
-		JScrollPane wordListScroll = new JScrollPane();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		wordListScroll.add(wordList, c);
+		wordList.setPreferredSize(new Dimension(100, 300));
+		JScrollPane wordListScroll = new JScrollPane(wordList);
+		wordListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		wordListScroll.add(wordList);
+		wordListPanel.add(wordListScroll, c);
 
 		JTextPane definitionList = new JTextPane();
-		JScrollPane defListScroll = new JScrollPane();
+		definitionList.setPreferredSize(new Dimension(100, 300));
+		JScrollPane defListScroll = new JScrollPane(definitionList);
+		defListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		c.gridx = 1;
 		defListScroll.add(definitionList);
+		wordListPanel.add(defListScroll, c);
 
-		wordListPanel.add(wordListScroll, BorderLayout.WEST);
-		wordListPanel.add(defListScroll, BorderLayout.CENTER);
-
+		wordList.setText("testing");
 		panel.add(wordListPanel, BorderLayout.CENTER);
 		return panel;
 	}
@@ -187,6 +247,7 @@ public class Main extends JPanel {
 		word.setFont(font);
 		word.setBackground(new Color(176, 176, 176));
 		panel.add(word);
+
 		return panel;
 	}
 	//returns a JPanel containing definition choices
