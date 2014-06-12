@@ -4,10 +4,11 @@ import java.util.*;
 public class Test{
 	public Card rightWord;
 	//private int choice;
-	private String[] choices;
 	private RQueue<Card> Testable;
-	public Test(ArrayList<Card> Words){
-		
+	private int rightIndex; //Index of position for right index
+        
+        public Test(ArrayList<Card> Words){
+
 	//Random Queue with words from ArrayList.
 		Testable = new RQueue();
 		for(Card x: Words){
@@ -30,15 +31,15 @@ public class Test{
 		Card retWord = Testable.dequeue();  //when it populates it.
 		//Testable.enqueue(retWord)
 		return retWord;
-	}
+		}
 		
 		
 		
 	//populate an array with wrong, and right words.	
 	private String[] choicesPopulate(){
 		Random  r = new Random();
-		//Changed var name Choices to choices. We usually make var name lowercase.ok
-    	choices = new String[4];
+		//Changed var name Choices to choices. We usually make var name lowercase.
+                String[] choices = new String[4];
 		rightWord = picker();
 		/* This while loop is unnecessary.
                  * for (int i = 0; i < 1, i ++){
@@ -47,26 +48,18 @@ public class Test{
                 choices[r.nextInt(4)] = rightWord.getDef();
 		for (int i = 0; i < 3; i ++){
 			if(choices[i] == null){
-                                //Don't we have to use dequeue here too? Why peekfront?right. my bad
-				//choices[i]=Testable.dequeue().getDef();
-				Card tmp = Testable.dequeue();
-				choices[i] = tmp.getDef();
-				Testable.enqueue(tmp);
-			}
-			else if(choices[i] != null){
-                                //Same here
-				Card tmp = Testable.dequeue();
-				choices[i + 1] = tmp.getDef();
-				Testable.enqueue(tmp);
-			}
-		}
-                //Returns an array with the definition choice for user
-        return choices;
-	}
-	
+
+                                //Don't we have to use dequeue here too? Why peekfront?
+				//choices[i]=Testable.peekFront().getDef();
+			    choices[i] = Testable.dequeue().getDef();
+		    }
+                }
+                    //Return arraylist with the definition choice for user
+                return choices;
+	    }
+        
+
 	//Changed Selected to selected
-	
-	//It's not an array list, it's an array.
 	public boolean Tester(int selected){
                 //There is no getIndex method for an arraylist. I think we have to make a instance variable that stores the index of right word and compare it with the
                 //argument in this method
@@ -137,6 +130,7 @@ public class Test{
 			System.out.println("Sorry, Wrong Answer, Right Answer is: " + rightWord.getDef());
 		}
 		}
-	*/
-//}	
+}	
 
+*/
+}     
