@@ -16,4 +16,9 @@ public class Card{
     public int getNumWrong() {return numWrong;}
     public void setNumWrong(int n) {numWrong = n;}
 	public void gotWrong() {numWrong++;}
+
+    public String toString() {
+        String retStr = "[" + name + ": " + def + "]";
+        return retStr;
+    }
 }

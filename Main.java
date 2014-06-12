@@ -31,6 +31,8 @@ public class Main extends JPanel {
         setPreferredSize(new Dimension(600, 400));
 		setLayout(new BorderLayout());
 		graphicalMainScreen();
+
+		populateDeck();
 	}
 	
 	public enum GUISetting {
