@@ -5,7 +5,9 @@ public class Test{
 	public Card rightWord;
 	//private int choice;
 	private RQueue<Card> Testable;
-	public Test(ArrayList<Card> Words){
+	private rightIndex; //Index of position for right index
+        
+        public Test(ArrayList<Card> Words){
 		
 	//Random Queue with words from ArrayList.
 		Testable = new RQueue();
@@ -22,10 +24,11 @@ public class Test{
 				}
 			}
 		}
-		//this selects the word from the random queue
+		
+                //this selects the word from the random queue
                 //Shouldn't this be dequeue? This does not shuffle the words.
 	private Card picker(){
-		retWord = Testable.peekFront();
+		Card retWord = Testable.dequeue(); //changed peekfront to dequeue
 		
 		return retWord;
 		}
@@ -42,32 +45,23 @@ public class Test{
                  * for (int i = 0; i < 1, i ++){
 			Choices[r.nextInt(4)] = rightWord.getDef();
 			}*/
-                choices[r.nextInt(4)] = rightWord.getDef();
+                rightIndex = r.nextInt();
+                choices[rightIndex] = rightWord.getDef();
 		for (int i = 0; i < 3; i ++){
 			if(choices[i] == null){
                                 //Don't we have to use dequeue here too? Why peekfront?
-				choices[i]=Testable.peekFront().getDef();
-			else if(choices[i] != null){
-                                //Same here
-				choices[i+1] = Testable.peekFront().getDef();
-				}
-			}
+				//choices[i]=Testable.peekFront().getDef();
+			    choices[i] = Testable.dequeue().getDef();
 		}
                 //Return arraylist with the definition choice for user
-                reurn choices
+                return choices
 	}
 	
 	//Changed Selected to selected
 	public boolean Tester(int selected){
                 //There is no getIndex method for an arraylist. I think we have to make a instance variable that stores the index of right word and compare it with the
-                //argument in this method
-		if(choices.getIndex(rightWord.getDef()) == selected){
-			return true;
-			}
-		else{
-			return false;
-	
-	
+            return rightIndex == selected;
+        }        
 			
 		//actual tester
 		
