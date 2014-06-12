@@ -5,7 +5,7 @@ public class Test{
 	public Card rightWord;
 	//private int choice;
 	private RQueue<Card> Testable;
-	private rightIndex; //Index of position for right index
+	private int rightIndex; //Index of position for right index
         
         public Test(ArrayList<Card> Words){
 		
@@ -13,7 +13,7 @@ public class Test{
 		Testable = new RQueue();
 		for(Card x: Words){
 		//initial adding.  make it two?
-			Testable.engueue(x);
+			Testable.enqueue(x);
 			Testable.enqueue(x);
 			if(x.getNumWrong() > 0){
 				int numElem = x.getNumWrong();
@@ -52,10 +52,12 @@ public class Test{
                                 //Don't we have to use dequeue here too? Why peekfront?
 				//choices[i]=Testable.peekFront().getDef();
 			    choices[i] = Testable.dequeue().getDef();
-		}
-                //Return arraylist with the definition choice for user
-                return choices
-	}
+		    }
+                }
+                    //Return arraylist with the definition choice for user
+                return choices;
+	    }
+        
 	
 	//Changed Selected to selected
 	public boolean Tester(int selected){
@@ -109,3 +111,4 @@ public class Test{
 }	
 
 */
+}     
