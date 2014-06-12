@@ -6,9 +6,7 @@ public class Test{
 	//private int choice;
 	private String[] choices;
 	private RQueue<Card> Testable;
-	private rightIndex; //Index of position for right index
-        
-        public Test(ArrayList<Card> Words){
+	public Test(ArrayList<Card> Words){
 		
 	//Random Queue with words from ArrayList.
 		Testable = new RQueue();
@@ -25,12 +23,12 @@ public class Test{
 				}
 			}
 		}
-		
-                //this selects the word from the random queue
+		//this selects the word from the random queue
                 //Shouldn't this be dequeue? This does not shuffle the words.
 	private Card picker(){
-		Card retWord = Testable.dequeue(); //changed peekfront to dequeue
-		
+		//Card retWord = Testable.peekFront();
+		Card retWord = Testable.dequeue();  //when it populates it.
+		//Testable.enqueue(retWord)
 		return retWord;
 	}
 		
@@ -46,16 +44,24 @@ public class Test{
                  * for (int i = 0; i < 1, i ++){
 			Choices[r.nextInt(4)] = rightWord.getDef();
 			}*/
-                rightIndex = r.nextInt();
-                choices[rightIndex] = rightWord.getDef();
+                choices[r.nextInt(4)] = rightWord.getDef();
 		for (int i = 0; i < 3; i ++){
 			if(choices[i] == null){
-                                //Don't we have to use dequeue here too? Why peekfront?
-				//choices[i]=Testable.peekFront().getDef();
-			    choices[i] = Testable.dequeue().getDef();
+                                //Don't we have to use dequeue here too? Why peekfront?right. my bad
+				//choices[i]=Testable.dequeue().getDef();
+				Card tmp = Testable.dequeue();
+				choices[i] = tmp.getDef();
+				Testable.enqueue(tmp);
+			}
+			else if(choices[i] != null){
+                                //Same here
+				Card tmp = Testable.dequeue();
+				choices[i + 1] = tmp.getDef();
+				Testable.enqueue(tmp);
+			}
 		}
-                //Return arraylist with the definition choice for user
-                return choices
+                //Returns an array with the definition choice for user
+        return choices;
 	}
 	
 	//Changed Selected to selected
@@ -63,8 +69,30 @@ public class Test{
 	//It's not an array list, it's an array.
 	public boolean Tester(int selected){
                 //There is no getIndex method for an arraylist. I think we have to make a instance variable that stores the index of right word and compare it with the
-            return rightIndex == selected;
-        }        
+                //argument in this method
+                //it's an array, lol.
+        
+        for (int i = 0; i <choices.length; i ++){
+        	if(choices[i] == rightWord.getDef()){
+				if(i == selected){
+				return true;
+				}
+				
+				else{
+					Testable.enqueue(rightWord);
+					return false;
+					
+					}
+				}
+			}
+		return false;}	
+}	
+			
+				
+					
+		
+	
+
 			
 		//actual tester
 		
