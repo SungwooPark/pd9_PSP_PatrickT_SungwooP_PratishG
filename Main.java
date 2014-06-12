@@ -56,7 +56,8 @@ public class Main extends JPanel {
 	
 	public void viewWordsScreen() {
 		removeAll();
-		add(viewWordList(), BorderLayout.PAGE_START);
+		add(viewWordListTop(), BorderLayout.PAGE_START);
+		add(viewWordList(), BorderLayout.CENTER);
 		setFocusable(true);
 		addKeyListener(new escapeListener());
 		revalidate();
@@ -171,8 +172,8 @@ public class Main extends JPanel {
 		
 		return panel;
 	}
-
-	public JPanel viewWordList() {
+	
+	public JPanel viewWordListTop() {
 		JPanel panel = new JPanel(new BorderLayout());
 		JTextPane textPane = new JTextPane();
 		textPane.setText("Word List");
@@ -184,12 +185,32 @@ public class Main extends JPanel {
 		Font font = new Font("Courier", Font.BOLD, 42);
 		textPane.setFont(font);
 		panel.add(textPane, BorderLayout.PAGE_START);
+		
+		return panel;
+	}
 
+	public JPanel viewWordList() {
+		JPanel panel = new JPanel(new BorderLayout());
+	/*
+		JPanel panel = new JPanel(new BorderLayout());
+		JTextPane textPane = new JTextPane();
+		textPane.setText("Word List");
+		textPane.setBackground(Color.GRAY);
+		StyledDocument doc = textPane.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		Font font = new Font("Courier", Font.BOLD, 42);
+		textPane.setFont(font);
+		panel.add(textPane, BorderLayout.PAGE_START);
+	*/
+	
 		JPanel wordListPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
 		////get words somehow////
 		JTextPane wordList = new JTextPane();
+		wordList.setPreferredSize(new Dimension(100, 300));
 		JScrollPane wordListScroll = new JScrollPane(wordList);
 		wordListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		c.fill = GridBagConstraints.VERTICAL;
@@ -199,6 +220,7 @@ public class Main extends JPanel {
 		wordListPanel.add(wordListScroll, c);
 
 		JTextPane definitionList = new JTextPane();
+		definitionList.setPreferredSize(new Dimension(100, 300));
 		JScrollPane defListScroll = new JScrollPane(definitionList);
 		defListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		c.gridx = 1;
