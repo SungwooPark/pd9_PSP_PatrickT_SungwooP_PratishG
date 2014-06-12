@@ -4,6 +4,7 @@ import java.util.*;
 public class Test{
 	public Card rightWord;
 	//private int choice;
+	private String[] choices;
 	private RQueue<Card> Testable;
 	public Test(ArrayList<Card> Words){
 		
@@ -37,7 +38,7 @@ public class Test{
 	private String[] choicesPopulate(){
 		Random  r = new Random();
 		//Changed var name Choices to choices. We usually make var name lowercase.ok
-                String[] choices = new String[4];
+    	choices = new String[4];
 		rightWord = picker();
 		/* This while loop is unnecessary.
                  * for (int i = 0; i < 1, i ++){
@@ -47,13 +48,16 @@ public class Test{
 		for (int i = 0; i < 3; i ++){
 			if(choices[i] == null){
                                 //Don't we have to use dequeue here too? Why peekfront?right. my bad
-				choices[i]=Testable.dequeue().getDef();
-				Testable.enqueue(choices[i]);
+				//choices[i]=Testable.dequeue().getDef();
+				Card tmp = Testable.dequeue();
+				choices[i] = tmp.getDef();
+				Testable.enqueue(tmp);
 			}
 			else if(choices[i] != null){
                                 //Same here
-				choices[i + 1]=Testable.dequeue().getDef();
-				Testable.enqueue(choices[i + 1]);
+				Card tmp = Testable.dequeue();
+				choices[i + 1] = tmp.getDef();
+				Testable.enqueue(tmp);
 			}
 		}
                 //Returns an array with the definition choice for user
@@ -122,5 +126,4 @@ public class Test{
 		}
 	*/
 //}	
-
 
