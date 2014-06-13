@@ -210,12 +210,21 @@ public class Main extends JPanel {
 
 	public void addWord() {
 		JPanel inputPane = new JPanel(new BorderLayout());
+		
+		JPanel labels = new JPanel(new GridLayout(0,1,2,2));
+		labels.add(new JLabel("Term", SwingConstants.RIGHT));
+		labels.add(new JLabel("Definition", SwingConstants.RIGHT));
+		
+		JPanel fields = new JPanel(new GridLayout(0,1,2,2));
 		JTextField word = new JTextField();
 		JTextArea definition = new JTextArea();
-		inputPane.add(word, BorderLayout.PAGE_START);
-		inputPane.add(definition, BorderLayout.CENTER);
+		fields.add(word, BorderLayout.PAGE_START);
+		fields.add(definition, BorderLayout.CENTER);
+		
+		inputPane.add(labels, BorderLayout.WEST);
+		inputPane.add(fields, BorderLayout.CENTER);
 
-		String result = JOptionPane.showInputDialog(this, inputPane);
+		JOptionPane.showMessageDialog(this, inputPane, "Add a word", JOptionPane.QUESTION_MESSAGE);
 		/*
 		if (result == JOptionPane.YES_OPTION) {
 			Card newCard = new Card(word.getText(), definition.getText());
