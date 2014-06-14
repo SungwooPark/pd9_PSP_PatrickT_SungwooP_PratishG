@@ -6,6 +6,19 @@ public class Test{
 	//private int choice;
 	private RQueue<Card> Testable;
 	private int rightIndex; //Index of position for right index
+       
+        //Main function created to check whether this class works. Will be deleted
+        
+        public static void main(String[] args){
+            Card newCard = new Card("hello","world");
+            Card newCard2 = new Card("apple","fruit");
+            ArrayList<Card> testDeck = new ArrayList<Card>();
+            testDeck.add(newCard);
+            testDeck.add(newCard2);
+
+            Test testClass = new Test(testDeck);
+        }
+        
         
         public Test(ArrayList<Card> Words){
 
@@ -58,9 +71,20 @@ public class Test{
                 return choices;
 	    }
         
+        
+        public boolean Tester(int selected){
+            if (selected == rightIndex){
+                return true;
+            }else{
+                Testable.enqueue(rightWord); //Insert another rightWord card to the random queue;
+                return false;
+            }
+        }
 
-	//Changed Selected to selected
-	public boolean Tester(int selected){
+
+        //This tester function doesn't work. First of all, choices array is local to choices population. Therefore, we just have to compare int selected with the index of right answer
+       /* 
+         public boolean Tester(int selected){
                 //There is no getIndex method for an arraylist. I think we have to make a instance variable that stores the index of right word and compare it with the
                 //argument in this method
                 //it's an array, lol.
@@ -78,7 +102,9 @@ public class Test{
 					}
 				}
 			}
-		return false;}	
+		return false;}	*/
+
+
 }	
 			
 				
