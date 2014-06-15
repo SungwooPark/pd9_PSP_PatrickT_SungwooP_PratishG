@@ -495,6 +495,16 @@ public class Main extends JPanel {
 					redraw();
 					break;
 				case "quit":
+					PrintWriter writer;
+					try {
+						writer = new PrintWriter("words.txt");
+						for (int i = 0; i < deck.size(); i++) {
+							writer.print(deck.get(i).getName() + "," + deck.get(i).getDef());
+							writer.print("\n");
+						}
+						
+						writer.close();
+					} catch (FileNotFoundException ex) {}
 					System.exit(0);
 					break;
 				default:

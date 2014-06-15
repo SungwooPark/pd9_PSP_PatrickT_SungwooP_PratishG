@@ -1,5 +1,3 @@
 apple,a fruit
-banana,good fruit
-hello,world???
-hi,how are you?
 carrot,good fruit
+Clock,Tells the time
