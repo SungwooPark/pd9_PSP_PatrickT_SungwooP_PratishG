@@ -295,35 +295,38 @@ public class Main extends JPanel {
 		JSeparator vertSeparator = new JSeparator(SwingConstants.VERTICAL);
 		horizSeparator.setMaximumSize( new Dimension(Integer.MAX_VALUE, 1) );
 		
-		definition1 = new JTextPane();
-		definition1.setText("definition1");
+		Test tester = new Test(deck); //Initialize test class
+                String[] wordChoices = tester.choicesPopulate(); //Get arraylist of choices 
+
+                definition1 = new JTextPane();
+		definition1.setText(wordChoices[0]);
 		definition1.addMouseListener(new clickListener());
 		definition1.setEditable(false);
 		StyledDocument doc = definition1.getStyledDocument();
 		try {
-            definition1.setEditorKit(new MyEditorKit());
-            SimpleAttributeSet attrs=new SimpleAttributeSet();
-            StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
-            doc=(StyledDocument)definition1.getDocument();
-            doc.insertString(0,"definition1",attrs);
-            doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
-        } catch (Exception e) {}
-		
-		definition2 = new JTextPane();
-		definition2.setText("definition2");
-		definition2.addMouseListener(new clickListener());
-		definition2.setEditable(false);
+                    definition1.setEditorKit(new MyEditorKit());
+                    SimpleAttributeSet attrs=new SimpleAttributeSet();
+                    StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
+                    doc=(StyledDocument)definition1.getDocument();
+                    doc.insertString(0,wordChoices[0],attrs);
+                    doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
+                } catch (Exception e) {}
+                    
+                definition2 = new JTextPane();
+                definition2.setText(wordChoices[1]);
+                definition2.addMouseListener(new clickListener());
+                definition2.setEditable(false);
 		try {
             definition2.setEditorKit(new MyEditorKit());
             SimpleAttributeSet attrs=new SimpleAttributeSet();
             StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
             doc=(StyledDocument)definition2.getDocument();
-            doc.insertString(0,"definition2",attrs);
+            doc.insertString(0,wordChoices[1],attrs);
             doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
         } catch (Exception e) {}
 		
 		definition3 = new JTextPane();
-		definition3.setText("definition4");
+		definition3.setText(wordChoices[2]);
 		definition3.addMouseListener(new clickListener());
 		definition3.setEditable(false);
 		try {
@@ -331,12 +334,12 @@ public class Main extends JPanel {
             SimpleAttributeSet attrs=new SimpleAttributeSet();
             StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
             doc=(StyledDocument)definition3.getDocument();
-            doc.insertString(0,"definition3",attrs);
+            doc.insertString(0,wordChoices[2],attrs);
             doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
         } catch (Exception e) {}
 		
 		definition4 = new JTextPane();
-		definition4.setText("definition4");
+		definition4.setText(wordChoices[3]);
 		definition4.addMouseListener(new clickListener());
 		definition4.setEditable(false);
 		try {
@@ -344,7 +347,7 @@ public class Main extends JPanel {
             SimpleAttributeSet attrs=new SimpleAttributeSet();
             StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
             doc=(StyledDocument)definition4.getDocument();
-            doc.insertString(0,"definition4",attrs);
+            doc.insertString(0,wordChoices[3],attrs);
             doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
         } catch (Exception e) {}
 		
