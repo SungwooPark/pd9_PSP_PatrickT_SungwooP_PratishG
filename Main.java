@@ -140,7 +140,7 @@ public class Main extends JPanel {
 		c.gridx = 0;
 		c.insets = new Insets(10,0,0,0);
 		
-		JButton viewWords = new JButton("View words");
+		JButton viewWords = new JButton("View/Remove words");
 		viewWords.addActionListener(new actionListener());
 		viewWords.setActionCommand("viewWords");
 		viewWords.setPreferredSize(new Dimension(150, 30));
@@ -153,11 +153,13 @@ public class Main extends JPanel {
 		addWords.setPreferredSize(new Dimension(150, 30));
 		buttonPanel.add(addWords, c);
 		
+		/*
 		JButton removeWords = new JButton("Remove words");
 		removeWords.addActionListener(new actionListener());
 		removeWords.setActionCommand("removeWords");
 		removeWords.setPreferredSize(new Dimension(150, 30));
 		buttonPanel.add(removeWords, c);
+		*/
 		
 		JButton test = new JButton("Test");
 		test.addActionListener(new actionListener());
@@ -228,11 +230,19 @@ public class Main extends JPanel {
 				String selectedWord = c.getSelectedItem().toString();
 				//System.out.println(selectedWord);
 				if (JOptionPane.showConfirmDialog(null, "Do you want to remove " + selectedWord + "?", "Removal", JOptionPane.OK_CANCEL_OPTION) == 0) {
-					System.out.println("OK option pressed");
+					//search for word
+					for (int i = 0; i < deck.size(); i++) {
+						if (deck.get(i).getName().equals(selectedWord)) {
+							deck.remove(i);
+							redraw();
+							break;
+						}
+					}
 				}
 			}
 		});
 		overarchingPanel.add(removePanel, BorderLayout.LINE_START);
+		
 		return overarchingPanel;
 	}
 
@@ -485,6 +495,16 @@ public class Main extends JPanel {
 					redraw();
 					break;
 				case "quit":
+					PrintWriter writer;
+					try {
+						writer = new PrintWriter("words.txt");
+						for (int i = 0; i < deck.size(); i++) {
+							writer.print(deck.get(i).getName() + "," + deck.get(i).getDef());
+							writer.print("\n");
+						}
+						
+						writer.close();
+					} catch (FileNotFoundException ex) {}
 					System.exit(0);
 					break;
 				default:
