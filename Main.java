@@ -36,7 +36,7 @@ public class Main extends JPanel {
 	}
 	
 	public enum GUISetting {
-    	MAIN, TEST, ADD, REMOVE, VIEW
+    	MAIN, TEST, ADD, VIEW
     }
 
 	//this creates a text field containing the word; places at top middle
@@ -79,8 +79,6 @@ public class Main extends JPanel {
 				break;
 			case ADD:
 				addWord();
-				break;
-			case REMOVE:
 				break;
 			default:
 				break;
@@ -306,26 +304,26 @@ public class Main extends JPanel {
 		horizSeparator.setMaximumSize( new Dimension(Integer.MAX_VALUE, 1) );
 		
 		Test tester = new Test(deck); //Initialize test class
-                String[] wordChoices = tester.choicesPopulate(); //Get arraylist of choices 
+        String[] wordChoices = tester.choicesPopulate(); //Get arraylist of choices 
 
-                definition1 = new JTextPane();
+        definition1 = new JTextPane();
 		definition1.setText(wordChoices[0]);
 		definition1.addMouseListener(new clickListener());
 		definition1.setEditable(false);
 		StyledDocument doc = definition1.getStyledDocument();
 		try {
-                    definition1.setEditorKit(new MyEditorKit());
-                    SimpleAttributeSet attrs=new SimpleAttributeSet();
-                    StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
-                    doc=(StyledDocument)definition1.getDocument();
-                    doc.insertString(0,wordChoices[0],attrs);
-                    doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
-                } catch (Exception e) {}
+            definition1.setEditorKit(new MyEditorKit());
+            SimpleAttributeSet attrs=new SimpleAttributeSet();
+            StyleConstants.setAlignment(attrs,StyleConstants.ALIGN_CENTER);
+            doc=(StyledDocument)definition1.getDocument();
+            doc.insertString(0,wordChoices[0],attrs);
+            doc.setParagraphAttributes(0,doc.getLength()-1,attrs,false);
+        } catch (Exception e) {}
                     
-                definition2 = new JTextPane();
-                definition2.setText(wordChoices[1]);
-                definition2.addMouseListener(new clickListener());
-                definition2.setEditable(false);
+        definition2 = new JTextPane();
+        definition2.setText(wordChoices[1]);
+        definition2.addMouseListener(new clickListener());
+        definition2.setEditable(false);
 		try {
             definition2.setEditorKit(new MyEditorKit());
             SimpleAttributeSet attrs=new SimpleAttributeSet();
@@ -365,7 +363,7 @@ public class Main extends JPanel {
 		choiceFields.add(definition2);
 		choiceFields.add(definition3);
 		choiceFields.add(definition4);
-
+		
 		return choiceFields;
 	}
 
@@ -484,10 +482,6 @@ public class Main extends JPanel {
 					break;
 				case "addWords":
 					guiSetting = GUISetting.ADD;
-					redraw();
-					break;
-				case "removeWords":
-					guiSetting = GUISetting.REMOVE;
 					redraw();
 					break;
 				case "timeToTest":
