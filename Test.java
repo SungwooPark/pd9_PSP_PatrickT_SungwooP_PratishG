@@ -10,7 +10,7 @@ public class Test{
         //This temporary storage is necessary to make sure that we do not have duplicate answer choice for the reader.
 
         //Main function created to check whether this class works. Will be deleted
-        
+        /*  
         public static void main(String[] args){
             Card newCard = new Card("hello","world");
             Card newCard2 = new Card("apple","fruit");
@@ -26,11 +26,15 @@ public class Test{
             testDeck.add(newCard5);
 
             Test testClass = new Test(testDeck);
-            System.out.println(testClass.getRightWord().getName());
+            //testClass.checkTestable();
             String[] userChoices = testClass.choicesPopulate();
+            System.out.println("Right word: " + testClass.getRightWord().getName());
             for (String s:userChoices){
                 System.out.println(s);
             }
+            System.out.println("Right Index: " + testClass.getRightIndex());
+            System.out.println(testClass.Tester(0));
+            testClass.checkTestable();
         }
     
         //Temporary test functions
@@ -42,6 +46,9 @@ public class Test{
         public Card getRightWord(){
             return rightWord;
         }
+        public int getRightIndex(){
+            return rightIndex;
+        }*/
         
         public Test(ArrayList<Card> Words){
 
@@ -73,18 +80,26 @@ public class Test{
 		
 	//populate an array with wrong, and right words.	
 	public String[] choicesPopulate(){
-		Random  r = new Random();
+                Random  r = new Random();
 		//Changed var name Choices to choices. We usually make var name lowercase.
                 String[] choices = new String[4];
-		rightWord = picker();
+                rightWord = picker();
+                choiceWords = new ArrayList<Card>();
                 choiceWords.add(rightWord);
-                choices[r.nextInt(4)] = rightWord.getDef();
-		for (int i = 0; i < 3; i ++){
+                rightIndex = 1;//For now
+                //rightIndex = r.nextInt(4);
+                choices[rightIndex] = rightWord.getDef();
+		for (int i = 0; i <= 3; i ++){
 			if(choices[i] == null){
+                                while (choiceWords.contains(Testable.peekFront())){
+                                    Testable.sample(); //If a word that is about to be inserted is already in the choices, choose another one.
+                                }
                             Card choiceToAdd = Testable.dequeue();
                             choiceWords.add(choiceToAdd);
 			    choices[i] = choiceToAdd.getDef();
-		    }
+		    
+                        }
+
                 }
                     //Return arraylist with the definition choice for user
                 return choices;
@@ -93,9 +108,20 @@ public class Test{
         
         public boolean Tester(int selected){
             if (selected == rightIndex){
+                for (Card i: choiceWords){
+                    System.out.println("i is " + i.getName());
+                    System.out.println(i.getName() +","+ rightWord.getName());
+                    if (!i.getName().equals(rightWord.getName())){
+                        Testable.enqueue(i);
+                        System.out.println("enqueueing " + i.getName()); 
+                    }
+                }
                 return true;
             }else{
                 Testable.enqueue(rightWord); //Insert another rightWord card to the random queue;
+                for (Card i:choiceWords){
+                    Testable.enqueue(i);
+                }
                 return false;
             }
         }
