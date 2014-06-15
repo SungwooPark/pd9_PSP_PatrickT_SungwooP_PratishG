@@ -60,8 +60,9 @@ public class Main extends JPanel {
 		removeAll();
 		add(viewWordListTop(), BorderLayout.PAGE_START);
 		add(viewWordList(), BorderLayout.CENTER);
-		setFocusable(true);
+		add(removeWordBox(), BorderLayout.PAGE_END);
 		addKeyListener(new escapeListener());
+		setFocusable(true);
 		revalidate();
 	}
 	
@@ -201,30 +202,67 @@ public class Main extends JPanel {
 		wordsScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 		panel.add(wordsScroll);
-
+		
 		for (int i = 0; i < deck.size(); i++) {
 			words.setText(words.getText() + deck.get(i).getName() + "\n");
 		}
 		return panel;
+	}
+	
+	public JPanel removeWordBox() {
+		JPanel overarchingPanel = new JPanel(new BorderLayout());
+	
+		JPanel removePanel = new JPanel(new BorderLayout());
+		
+		removePanel.add(new JLabel("Remove words"), BorderLayout.PAGE_START);
+		int counter = deck.size();
+		String[] words = new String[counter];
+		for (int i = 0; i < counter; i++) {
+			words[i] = deck.get(i).getName();
+		}
+		JComboBox wordList = new JComboBox(words);
+		removePanel.add(wordList, BorderLayout.CENTER);
+		wordList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JComboBox c = (JComboBox)e.getSource();
+				String selectedWord = c.getSelectedItem().toString();
+				//System.out.println(selectedWord);
+				if (JOptionPane.showConfirmDialog(null, "Do you want to remove " + selectedWord + "?", "Removal", JOptionPane.OK_CANCEL_OPTION) == 0) {
+					System.out.println("OK option pressed");
+				}
+			}
+		});
+		overarchingPanel.add(removePanel, BorderLayout.LINE_START);
+		return overarchingPanel;
 	}
 
 	public void addWord() {
 		JPanel inputPane = new JPanel(new BorderLayout());
 		
 		JPanel labels = new JPanel(new GridLayout(0,1,2,2));
-		labels.add(new JLabel("Term", SwingConstants.RIGHT));
-		labels.add(new JLabel("Definition", SwingConstants.RIGHT));
+		labels.add(new JLabel("Term  ", SwingConstants.RIGHT));
+		labels.add(new JLabel("Definition  ", SwingConstants.RIGHT));
 		
 		JPanel fields = new JPanel(new GridLayout(0,1,2,2));
 		JTextField word = new JTextField();
+		word.setPreferredSize(new Dimension(75, 20));
 		JTextArea definition = new JTextArea();
+		definition.setPreferredSize(new Dimension(75, 40));
+		definition.setLineWrap(true);
+		definition.setWrapStyleWord(true);
+		JScrollPane defScroll = new JScrollPane(definition);
+		defScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		fields.add(word, BorderLayout.PAGE_START);
-		fields.add(definition, BorderLayout.CENTER);
+		fields.add(defScroll, BorderLayout.CENTER);
 		
 		inputPane.add(labels, BorderLayout.WEST);
 		inputPane.add(fields, BorderLayout.CENTER);
 
-		JOptionPane.showMessageDialog(this, inputPane, "Add a word", JOptionPane.QUESTION_MESSAGE);
+		int result = JOptionPane.showConfirmDialog(null, inputPane, "Enter a new term", JOptionPane.OK_CANCEL_OPTION);
+		if (result == JOptionPane.OK_OPTION) {
+			Card newCard = new Card(word.getText(), definition.getText());
+			deck.add(newCard);
+		}
 		/*
 		if (result == JOptionPane.YES_OPTION) {
 			Card newCard = new Card(word.getText(), definition.getText());
