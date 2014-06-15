@@ -42,13 +42,14 @@ public class Test{
             while (!Testable.isEmpty()){
                 System.out.println(Testable.dequeue().getName());
             }
-        }
+        }*/
+        
         public Card getRightWord(){
             return rightWord;
         }
         public int getRightIndex(){
             return rightIndex;
-        }*/
+        }
         
         public Test(ArrayList<Card> Words){
 
