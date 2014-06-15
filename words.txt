@@ -1,3 +1,5 @@
 apple,a fruit
 carrot,good fruit
 Clock,Tells the time
+Hello,world
+Hi,How are you
