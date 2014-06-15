@@ -10,7 +10,7 @@ public class Test{
         //This temporary storage is necessary to make sure that we do not have duplicate answer choice for the reader.
 
         //Main function created to check whether this class works. Will be deleted
-        /*  
+        /* 
         public static void main(String[] args){
             Card newCard = new Card("hello","world");
             Card newCard2 = new Card("apple","fruit");
@@ -33,7 +33,7 @@ public class Test{
                 System.out.println(s);
             }
             System.out.println("Right Index: " + testClass.getRightIndex());
-            System.out.println(testClass.Tester(0));
+            testClass.update(false);
             testClass.checkTestable();
         }
     
@@ -49,6 +49,10 @@ public class Test{
         }
         public int getRightIndex(){
             return rightIndex;
+        }
+
+        public String getRightDefinition(){
+            return rightWord.getDef();
         }
         
         public Test(ArrayList<Card> Words){
@@ -106,7 +110,27 @@ public class Test{
                 return choices;
 	    }
         
-        
+        public void update(boolean userAnswer){
+            if (userAnswer){
+                for (Card i: choiceWords){
+                    System.out.println("i is " + i.getName());
+                    System.out.println(i.getName() + "," + rightWord.getName());
+                    if (!i.getName().equals(rightWord.getName())){
+                        Testable.enqueue(i);
+                        System.out.println("enqueing " + i.getName());
+                    }
+                }
+            }else{
+                    Testable.enqueue(rightWord);
+                    for (Card i:choiceWords){
+                        Testable.enqueue(i);
+                    }
+                }
+            }
+
+        /*
+         * Instead of this tester function. We will use update function to update random queue.
+         * Checking whether user got a word correct will be done in main class.
         public boolean Tester(int selected){
             if (selected == rightIndex){
                 for (Card i: choiceWords){
@@ -126,82 +150,6 @@ public class Test{
                 return false;
             }
         }
-
-
-        //This tester function doesn't work. First of all, choices array is local to choices population. Therefore, we just have to compare int selected with the index of right answer
-       /* 
-         public boolean Tester(int selected){
-                //There is no getIndex method for an arraylist. I think we have to make a instance variable that stores the index of right word and compare it with the
-                //argument in this method
-                //it's an array, lol.
-        
-        for (int i = 0; i <choices.length; i ++){
-        	if(choices[i] == rightWord.getDef()){
-				if(i == selected){
-				return true;
-				}
-				
-				else{
-					Testable.enqueue(rightWord);
-					return false;
-					
-					}
-				}
-			}
-		return false;}	*/
-
+        */
 
 }	
-			
-				
-					
-		
-	
-
-			
-		//actual tester
-		
-	
-        //*******What happened with this code? Why are we not using it?
-		//Unused section, kept just in case.
-	//If user gets it right, remove word from the queue, else add the word.  If no more words left inform user
-	/*
-	public 	void Tester(int Selected){
-		Word = picker();
-		Random r = new Random();
-		String[] Choices = new String[4];
-		for(int i = 0;i<1;i++){
-			Choices[r.nextInt(4)] = Word.getDef();
-		}
-		for(int m = 0; m < Choices.length; m++){
-			if (Choices[m] == null){
-				Choices[m] = Word.getDef();
-			}
-		}
-		if(Choices[Selected] == Word.getDef()){
-			System.out.println("You are Correct");
-
-			
-			int counter = 0;
-			while(counter < Choices.length){
-			for (int counter = 0; counter < Choices.length; counter ++){
-				String [] Choices2 = new String[Choices.length - 1];
-				if(counter == Selected){
-					counter ++;
-					}
-				else {
-					if(counter < Choices2.length){
-						Choices2[counter] = Choices[counter];
-					}
-					else if(counter >= Choices2.length){
-						for(int goThru = 0; goThru < Choices2.length; goThru++){
-							if(Choices[goThru] = null){
-								Choices2[goThru] =
-						
-		else{
-			System.out.println("Sorry, Wrong Answer, Right Answer is: " + rightWord.getDef());
-		}
-		}
-}	
-
-*/
