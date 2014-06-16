@@ -22,7 +22,12 @@ public class Main extends JPanel {
 	private JTextPane definition4;
 
 	private long currentTime;
+	
+	private Test tester;
+	private String[] wordChoices;
 
+	private boolean changeOfWords;
+	
 	public Main() {
         deck = new ArrayList<Card>();
         guiSetting = GUISetting.MAIN;
@@ -31,7 +36,8 @@ public class Main extends JPanel {
         setPreferredSize(new Dimension(600, 400));
 		setLayout(new BorderLayout());
 		graphicalMainScreen();
-
+		changeOfWords = false;
+		
 		populateDeck();
 	}
 	
@@ -47,6 +53,9 @@ public class Main extends JPanel {
 	}
 	
 	public void multipleChoiceTest() {
+		tester = new Test(deck); //Initialize test class
+        wordChoices = tester.choicesPopulate(); //Get arraylist of choices 
+		
 		removeAll();
 		add(currentWord(), BorderLayout.PAGE_START);
 		add(choiceFields(), BorderLayout.CENTER);
@@ -54,7 +63,20 @@ public class Main extends JPanel {
 		addKeyListener(new escapeListener());
 		revalidate();
 		currentTime = System.currentTimeMillis();
+		
+		if (changeOfWords) {
+			changeOfWords = false;
+			try {Thread.sleep(500);} catch (InterruptedException ex) {}
+			wordChoices = tester.choicesPopulate();
+			word.setText(tester.getRightWord().getName());
+			definition1.setText(wordChoices[0]);
+			definition2.setText(wordChoices[1]);
+			definition3.setText(wordChoices[2]);
+			definition4.setText(wordChoices[3]);
+			redraw();
+		}
 	}
+		
 	
 	public void viewWordsScreen() {
 		removeAll();
@@ -282,7 +304,7 @@ public class Main extends JPanel {
 	public JPanel currentWord() {
 		JPanel panel = new JPanel(new BorderLayout());
 		word = new JTextPane();
-		word.setText("testing");
+		word.setText(tester.getRightWord().getName());
 		word.setEditable(false);
 		StyledDocument doc = word.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
@@ -303,9 +325,6 @@ public class Main extends JPanel {
 		JSeparator vertSeparator = new JSeparator(SwingConstants.VERTICAL);
 		horizSeparator.setMaximumSize( new Dimension(Integer.MAX_VALUE, 1) );
 		
-		Test tester = new Test(deck); //Initialize test class
-        String[] wordChoices = tester.choicesPopulate(); //Get arraylist of choices 
-
         definition1 = new JTextPane();
 		definition1.setText(wordChoices[0]);
 		definition1.addMouseListener(new clickListener());
@@ -470,7 +489,14 @@ public class Main extends JPanel {
 	class clickListener extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			JTextPane h = (JTextPane)e.getSource();
-			h.setText("it works");
+			if (h.getText().equals(tester.getRightDefinition())) {
+				h.setBackground(Color.GREEN);
+				changeOfWords = true;
+				redraw();
+			}
+			else {
+				h.setBackground(Color.RED);
+			}
 		}
 	}
 	class actionListener implements ActionListener {

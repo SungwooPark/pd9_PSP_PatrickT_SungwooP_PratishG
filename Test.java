@@ -91,8 +91,8 @@ public class Test{
                 rightWord = picker();
                 choiceWords = new ArrayList<Card>();
                 choiceWords.add(rightWord);
-                rightIndex = 1;//For now
-                //rightIndex = r.nextInt(4);
+                //rightIndex = 1;//For now
+                rightIndex = r.nextInt(4);
                 choices[rightIndex] = rightWord.getDef();
 		for (int i = 0; i <= 3; i ++){
 			if(choices[i] == null){
