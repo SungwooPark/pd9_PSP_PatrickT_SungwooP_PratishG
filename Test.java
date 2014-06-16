@@ -1,18 +1,20 @@
 import java.math.*;
 import java.util.*;
+import javax.swing.*;
 
 public class Test{
 	private Card rightWord;
-	//private int choice;
-	private RQueue<Card> Testable;
+	private int numWords; //Number of unique terms
+        private RQueue<Card> Testable;
 	private int rightIndex; //Index of position for right index
         private ArrayList<Card> choiceWords; //temporary storage of words that are in the choices given to the user.
         //This temporary storage is necessary to make sure that we do not have duplicate answer choice for the reader.
 
         //Main function created to check whether this class works. Will be deleted
-        /* 
+        /*         
         public static void main(String[] args){
-            Card newCard = new Card("hello","world");
+
+            /*Card newCard = new Card("hello","world");
             Card newCard2 = new Card("apple","fruit");
             Card newCard3 = new Card("banana","another fruit");
             Card newCard4 = new Card("kiwi","delicious fruit");
@@ -62,7 +64,8 @@ public class Test{
         public Test(ArrayList<Card> Words){
 
 	//Random Queue with words from ArrayList.
-		Testable = new RQueue();
+		numWords = Words.size();
+                Testable = new RQueue();
 		for(Card x: Words){
 		//initial adding.  make it two?
 			Testable.enqueue(x);
@@ -99,10 +102,16 @@ public class Test{
                 rightIndex = r.nextInt(4);
                 choices[rightIndex] = rightWord.getDef();
 		for (int i = 0; i <= 3; i ++){
-			if(choices[i] == null){
+			int loopCounter = 0;
+                        if(choices[i] == null){
                                 while (choiceWords.contains(Testable.peekFront())){
+                                    if (loopCounter > 20){
+                                        JOptionPane.showMessageDialog(new JFrame(), "You mastered these words! Add new vocabs!");
+                                        System.exit(0);
+                                    }
+                                    loopCounter++; 
                                     Testable.sample(); //If a word that is about to be inserted is already in the choices, choose another one.
-                                }
+                                }   
                             Card choiceToAdd = Testable.dequeue();
                             choiceWords.add(choiceToAdd);
 			    choices[i] = choiceToAdd.getDef();
@@ -127,7 +136,6 @@ public class Test{
                         Testable.enqueue(i);
                     }
                 }
-            System.out.println(Testable);    
         }
 			
 		public String toString() {

@@ -15,7 +15,6 @@ public class RQueue<T> implements Queue<T> {
 	_size = 0;
     }
 
-
     public void enqueue( T enQVal ) {
 	//special case: when enqueuing to an empty list, 
 	//make _front && _end point to same node

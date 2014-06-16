@@ -26,7 +26,6 @@ public class Main extends JPanel {
 	private Test tester;
 	private String[] wordChoices;
 
-	private boolean changeOfWords;
 	
 	public Main() {
         deck = new ArrayList<Card>();
@@ -36,7 +35,6 @@ public class Main extends JPanel {
         setPreferredSize(new Dimension(600, 400));
 		setLayout(new BorderLayout());
 		graphicalMainScreen();
-		changeOfWords = false;
 		
 		populateDeck();
 	}
@@ -56,7 +54,7 @@ public class Main extends JPanel {
 		if (tester == null) {
 			tester = new Test(deck); //Initialize test class
 		}
-        wordChoices = tester.choicesPopulate(); //Get arraylist of choices 
+                wordChoices = tester.choicesPopulate(); //Get arraylist of choices 
 		
 		removeAll();
 		add(currentWord(), BorderLayout.PAGE_START);
@@ -64,7 +62,6 @@ public class Main extends JPanel {
 		setFocusable(true);
 		addKeyListener(new escapeListener());
 		revalidate();
-		currentTime = System.currentTimeMillis();
 	}
 		
 	
@@ -488,6 +485,7 @@ public class Main extends JPanel {
 			    tester.update(true); 
                             if (tester.getRQueueSize() <= 4){
                                 JOptionPane.showMessageDialog(new JFrame(), "You mastered these words! Add new vocabs!");
+                                System.exit(0);
                                 return;
                             }
                             redraw();
