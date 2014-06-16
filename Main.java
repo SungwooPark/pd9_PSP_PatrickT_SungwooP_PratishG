@@ -53,7 +53,9 @@ public class Main extends JPanel {
 	}
 	
 	public void multipleChoiceTest() {
-		tester = new Test(deck); //Initialize test class
+		if (tester == null) {
+			tester = new Test(deck); //Initialize test class
+		}
         wordChoices = tester.choicesPopulate(); //Get arraylist of choices 
 		
 		removeAll();
@@ -66,7 +68,7 @@ public class Main extends JPanel {
 		
 		if (changeOfWords) {
 			changeOfWords = false;
-			try {Thread.sleep(500);} catch (InterruptedException ex) {}
+			try {Thread.sleep(100);} catch (InterruptedException ex) {}
 			wordChoices = tester.choicesPopulate();
 			word.setText(tester.getRightWord().getName());
 			definition1.setText(wordChoices[0]);
