@@ -1,3 +1,8 @@
+`2014-06-15`
+- Completed add/remove functions
+- Completed file writing abilities
+- Implemented randomized word definitions and word picking
+
 `2014-06-05`
 - Completed multiple choice frame; awaiting infrastructure
 - Completed launch screen
