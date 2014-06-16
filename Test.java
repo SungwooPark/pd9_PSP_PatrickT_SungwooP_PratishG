@@ -127,6 +127,10 @@ public class Test{
                     }
                 }
             }
+			
+		public String toString() {
+			return Testable.toString();
+		}
 
         /*
          * Instead of this tester function. We will use update function to update random queue.
