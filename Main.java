@@ -224,7 +224,11 @@ public class Main extends JPanel {
 		removePanel.add(wordList, BorderLayout.CENTER);
 		wordList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JComboBox c = (JComboBox)e.getSource();
+				if (deck.size() <= 4){
+                                    JOptionPane.showMessageDialog(new JFrame(),"You need at least 4 words","Error",JOptionPane.ERROR_MESSAGE);
+                                return;
+                                }
+                                JComboBox c = (JComboBox)e.getSource();
 				String selectedWord = c.getSelectedItem().toString();
 				//System.out.println(selectedWord);
 				if (JOptionPane.showConfirmDialog(null, "Do you want to remove " + selectedWord + "?", "Removal", JOptionPane.OK_CANCEL_OPTION) == 0) {
@@ -481,14 +485,18 @@ public class Main extends JPanel {
 					redraw();
 					break;
 				case "addWords":
-					guiSetting = GUISetting.ADD;
+                                        guiSetting = GUISetting.ADD;
 					redraw();
 					break;
 				case "timeToTest":
-					guiSetting = GUISetting.TEST;
+					if (deck.size() <= 4){
+                                            JOptionPane.showMessageDialog(new JFrame(),"You need at least 4 words","Error",JOptionPane.ERROR_MESSAGE);
+                                            return;
+                                        }
+                                        guiSetting = GUISetting.TEST;
 					redraw();
 					break;
-				case "quit":
+                                case "quit":
 					PrintWriter writer;
 					try {
 						writer = new PrintWriter("words.txt");
