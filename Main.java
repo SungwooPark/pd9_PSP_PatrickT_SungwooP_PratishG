@@ -65,18 +65,6 @@ public class Main extends JPanel {
 		addKeyListener(new escapeListener());
 		revalidate();
 		currentTime = System.currentTimeMillis();
-		
-		if (changeOfWords) {
-			changeOfWords = false;
-			try {Thread.sleep(100);} catch (InterruptedException ex) {}
-			wordChoices = tester.choicesPopulate();
-			word.setText(tester.getRightWord().getName());
-			definition1.setText(wordChoices[0]);
-			definition2.setText(wordChoices[1]);
-			definition3.setText(wordChoices[2]);
-			definition4.setText(wordChoices[3]);
-			redraw();
-		}
 	}
 		
 	
@@ -496,13 +484,20 @@ public class Main extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			JTextPane h = (JTextPane)e.getSource();
 			if (h.getText().equals(tester.getRightDefinition())) {
-				h.setBackground(Color.GREEN);
-				changeOfWords = true;
-				redraw();
+			    JOptionPane.showMessageDialog(new JFrame(),"Got it right!");
+			    tester.update(true); 
+                            if (tester.getRQueueSize() <= 4){
+                                JOptionPane.showMessageDialog(new JFrame(), "You mastered these words! Add new vocabs!");
+                                return;
+                            }
+                            redraw();
 			}
 			else {
-				h.setBackground(Color.RED);
-			}
+		    
+			    JOptionPane.showMessageDialog(new JFrame(),"incorrect ...");
+                            tester.update(false);
+                            redraw();
+                        }
 		}
 	}
 	class actionListener implements ActionListener {

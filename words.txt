@@ -3,4 +3,3 @@ carrot,good fruit
 Clock,Tells the time
 robot,automated machine
 cloud,on the sky
-Airplane,Flies

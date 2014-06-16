@@ -54,7 +54,11 @@ public class Test{
         public String getRightDefinition(){
             return rightWord.getDef();
         }
-        
+
+        public int getRQueueSize(){
+            return Testable.getSize();
+        }        
+
         public Test(ArrayList<Card> Words){
 
 	//Random Queue with words from ArrayList.
@@ -105,19 +109,16 @@ public class Test{
 		    
                         }
 
-                }
-                    //Return arraylist with the definition choice for user
+                } 
+                //Return arraylist with the definition choice for user
                 return choices;
 	    }
         
         public void update(boolean userAnswer){
             if (userAnswer){
                 for (Card i: choiceWords){
-                    System.out.println("i is " + i.getName());
-                    System.out.println(i.getName() + "," + rightWord.getName());
                     if (!i.getName().equals(rightWord.getName())){
                         Testable.enqueue(i);
-                        System.out.println("enqueing " + i.getName());
                     }
                 }
             }else{
@@ -126,7 +127,8 @@ public class Test{
                         Testable.enqueue(i);
                     }
                 }
-            }
+            System.out.println(Testable);    
+        }
 			
 		public String toString() {
 			return Testable.toString();
